@@ -33,8 +33,8 @@ class ThirdPageFragment : Fragment(R.layout.fragment_third_page) {
     private fun initViews() {
         with(binding) {
             arguments?.getString(ParamsKey.ENTERED_TEXT_KEY).let { text ->
-                if (text.isNullOrEmpty()){
-                    tvEnteredText2.text = context?.getString(R.string.second_page)
+                if (text.isNullOrEmpty()) {
+                    tvEnteredText2.text = context?.getString(R.string.third_page)
                 } else {
                     tvEnteredText2.text = text
                 }

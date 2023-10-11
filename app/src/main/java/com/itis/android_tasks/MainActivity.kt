@@ -1,11 +1,12 @@
 package com.itis.android_tasks
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.itis.android_tasks.base.BaseActivity
 import com.itis.android_tasks.databinding.ActivityMainBinding
 import com.itis.android_tasks.ui.FirstPageFragment
-import com.itis.android_tasks.ui.MainFragment
+import com.itis.android_tasks.ui.FourthPageFragment
 import com.itis.android_tasks.utils.ActionType
 
 class MainActivity : BaseActivity() {
@@ -21,13 +22,25 @@ class MainActivity : BaseActivity() {
             setContentView(R.layout.activity_main)
         }
 
-        if (supportFragmentManager.findFragmentByTag(MainFragment.MAIN_FRAGMENT_TAG) == null) {
+        if (supportFragmentManager.findFragmentByTag(FirstPageFragment.FIRST_PAGE_FRAGMENT_TAG) == null) {
             goToScreen(
                 ActionType.ADD,
-                MainFragment(),
-                MainFragment.MAIN_FRAGMENT_TAG,
+                FirstPageFragment(),
+                FirstPageFragment.FIRST_PAGE_FRAGMENT_TAG,
                 false
             )
+        }
+
+        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            if (supportFragmentManager.findFragmentByTag(FourthPageFragment.FOURTH_PAGE_FRAGMENT_TAG) == null) {
+                supportFragmentManager.beginTransaction()
+                    .add(
+                        binding.mainActivityRightContainer!!.id,
+                        FourthPageFragment(),
+                        FourthPageFragment.FOURTH_PAGE_FRAGMENT_TAG
+                    )
+                    .commit()
+            }
         }
     }
 

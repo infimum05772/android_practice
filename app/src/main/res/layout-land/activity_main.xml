@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context="ui.MainFragment">
+    tools:context=".MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/main_activity_left_container"
+        android:id="@+id/main_activity_container"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1" />

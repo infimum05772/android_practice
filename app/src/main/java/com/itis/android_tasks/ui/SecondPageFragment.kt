@@ -12,7 +12,7 @@ import com.itis.android_tasks.databinding.FragmentSecondPageBinding
 import com.itis.android_tasks.utils.ActionType
 import com.itis.android_tasks.utils.ParamsKey
 
-class SecondPageFragment: Fragment(R.layout.fragment_second_page) {
+class SecondPageFragment : Fragment(R.layout.fragment_second_page) {
 
     private var _binding: FragmentSecondPageBinding? = null
     private val binding: FragmentSecondPageBinding
@@ -35,7 +35,7 @@ class SecondPageFragment: Fragment(R.layout.fragment_second_page) {
     private fun initViews() {
         with(binding) {
             val text = arguments?.getString(ParamsKey.ENTERED_TEXT_KEY).also { text ->
-                if (text.isNullOrEmpty()){
+                if (text.isNullOrEmpty()) {
                     tvEnteredText1.text = context?.getString(R.string.second_page)
                 } else {
                     tvEnteredText1.text = text

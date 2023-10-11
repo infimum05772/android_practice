@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.itis.android_tasks.R
 import com.itis.android_tasks.base.BaseActivity
 import com.itis.android_tasks.databinding.FragmentFirstPageBinding
 import com.itis.android_tasks.utils.ActionType
+import com.itis.android_tasks.utils.DataListener
 import com.itis.android_tasks.utils.ParamsKey
 
 class FirstPageFragment : Fragment(R.layout.fragment_first_page) {
@@ -17,6 +19,7 @@ class FirstPageFragment : Fragment(R.layout.fragment_first_page) {
     private var _binding: FragmentFirstPageBinding? = null
     private val binding: FragmentFirstPageBinding
         get() = _binding!!
+    private lateinit var dataListener: DataListener
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,7 +51,21 @@ class FirstPageFragment : Fragment(R.layout.fragment_first_page) {
                     true
                 )
             }
+            btnSave.setOnClickListener {
+                dataListener =
+                    requireActivity().supportFragmentManager.findFragmentByTag(FourthPageFragment.FOURTH_PAGE_FRAGMENT_TAG) as DataListener
+                sendData(etTextToDisplay.text.toString())
+                etTextToDisplay.text = null
+            }
         }
+    }
+
+    private fun sendData(message: String) {
+        if (message.isNullOrEmpty()) {
+            Toast.makeText(context, "enter some text to display", Toast.LENGTH_SHORT).show()
+            return
+        }
+        dataListener.onDataReceived(message)
     }
 
     override fun onDestroyView() {
