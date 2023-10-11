@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="app_name_1">super duper HW1</string>
+    <string name="enter_text">enter text</string>
+    <string name="submit">submit</string>
+    <string name="second_page">Second page</string>
+    <string name="to_first_page">to first page</string>
+    <string name="to_third_page">to third page</string>
+    <string name="third_page">Third page</string>
+    <string name="line">line</string>
+    <string name="save">save</string>
 </resources>
