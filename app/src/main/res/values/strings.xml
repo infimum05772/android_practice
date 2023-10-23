@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="app_name_1">Super duper HW2</string>
+    <string name="et_phone_hint">enter your phone</string>
+    <string name="et_questions_amount_hint">enter amount of questions</string>
+    <string name="start">start</string>
+    <string name="finish">finish questionnaire</string>
+    <string name="question_example">how are you?</string>
+    <string name="question_title_example">question 1</string>
+    <string name="answer_example">yes</string>
 </resources>
