@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="question_texts">
+        <item>Do you enjoy socializing with large groups of people?</item>
+        <item>Are you a perfectionist?</item>
+        <item>Do you prefer routine and predictability in your daily life?</item>
+        <item>Are you easily stressed or anxious?</item>
+        <item>Do you consider yourself an introvert?</item>
+        <item>Are you a risk-taker?</item>
+        <item>Do you enjoy trying new activities or experiences?</item>
+        <item>Are you a good listener?</item>
+        <item>Do you enjoy being the center of attention?</item>
+        <item>Are you a creative person?</item>
+        <item>Do you often seek approval from others?</item>
+        <item>Are you a proactive problem solver?</item>
+        <item>Do you tend to be more optimistic than pessimistic?</item>
+        <item>Are you a spontaneous person?</item>
+        <item>Do you prefer working alone or in a team?</item>
+        <item>Are you a patient individual?</item>
+        <item>Do you enjoy learning new things?</item>
+        <item>Are you a good judge of character?</item>
+        <item>Do you prefer to plan things in advance or be more spontaneous?</item>
+        <item>Are you a good communicator?</item>
+        <item>Do you enjoy working under pressure?</item>
+        <item>Are you a confident person?</item>
+        <item>Do you believe in taking risks to achieve success?</item>
+        <item>Are you a decisive individual?</item>
+        <item>Do you enjoy taking on leadership roles?</item>
+        <item>Are you a good multitasker?</item>
+        <item>Do you seek out new challenges in life?</item>
+        <item>Are you a detail-oriented person?</item>
+        <item>Do you value honesty above all else?</item>
+        <item>Do you enjoy helping others?</item>
+        <item>Are you a good problem solver?</item>
+    </string-array>
+</resources>
