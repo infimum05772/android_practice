@@ -36,7 +36,7 @@ class StartPageFragment : Fragment(R.layout.fragment_start_page) {
     }
 
     private fun validatePhone(phone: String): Boolean {
-        return phone.length == 18 && phone.matches(Regex("^\\+7 \\(9\\d{2}\\)-\\d{3}-\\d{2}-\\d{2}$"))
+        return phone.matches(Regex("^\\+7 \\(9\\d{2}\\)-\\d{3}-\\d{2}-\\d{2}$"))
     }
 
     private fun validateQuestionsAmount(questionsAmount: String): Boolean {
@@ -151,8 +151,10 @@ class StartPageFragment : Fragment(R.layout.fragment_start_page) {
 
             etPhone.setOnFocusChangeListener { _, isFocused ->
                 if (!isFocused) {
-                    if (!validatePhone(etPhone.text.toString())) {
-                        tilPhone.error = "phone number must contain 10 digits and match mask\n+7 (9##)-###-##-##"
+                    if (!etPhone.text.toString().matches(Regex("^\\+7 \\(9(\\d(\\d\\)-(\\d(\\d(\\d-(\\d(\\d-(\\d(\\d)?)?)?)?)?)?)?)?)?$"))){
+                        tilPhone.error = "phone number must match mask\n+7 (9##)-###-##-##"
+                    } else if (!validatePhone(etPhone.text.toString())) {
+                        tilPhone.error = "phone number must contain 10 digits"
                     }
                 } else if (etPhone.text.isEmpty()) {
                     etPhone.setText("+7 (9")
