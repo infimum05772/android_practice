@@ -5,13 +5,23 @@ import com.itis.android_tasks.databinding.ItemAnswerBinding
 import com.itis.android_tasks.model.Answer
 
 class AnswerItem(
-    private val binding: ItemAnswerBinding
+    private val binding: ItemAnswerBinding,
+    private val onCheckedChange: (Int) -> Unit
 ) : ViewHolder(binding.root) {
+
+    init {
+        binding.rbAnswer.setOnClickListener {
+            onCheckedChange.invoke(adapterPosition)
+        }
+    }
 
     fun onBind(answer: Answer) {
         binding.run {
-            rbAnswer.text = answer.text
-            rbAnswer.isChecked = answer.isChecked
+            rbAnswer.apply {
+                text = answer.text
+                isChecked = answer.isChecked
+                isEnabled = !answer.isChecked
+            }
         }
     }
 }

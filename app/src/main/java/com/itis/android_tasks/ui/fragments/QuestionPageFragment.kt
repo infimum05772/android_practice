@@ -10,6 +10,7 @@ import com.itis.android_tasks.adapter.AnswersAdapter
 import com.itis.android_tasks.databinding.FragmentQuestionPageBinding
 import com.itis.android_tasks.model.Answer
 import com.itis.android_tasks.model.Question
+import com.itis.android_tasks.utils.DataListener
 import com.itis.android_tasks.utils.ParamsKey
 
 class QuestionPageFragment : Fragment() {
@@ -18,11 +19,15 @@ class QuestionPageFragment : Fragment() {
     private val binding: FragmentQuestionPageBinding
         get() = _binding!!
 
+    private var answersAdapter: AnswersAdapter? = null
+
+    private var dataListener: DataListener? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentQuestionPageBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -33,12 +38,41 @@ class QuestionPageFragment : Fragment() {
     }
 
     private fun initViews() {
-        val question = requireArguments().getSerializable(ParamsKey.QUESTION_KEY) as Question
+        val question = requireArguments().getSerializable(ParamsKey.QUESTION_KEY) as? Question
+        dataListener =
+            requireActivity().supportFragmentManager.findFragmentByTag(QuestionnairePageFragment.QUESTIONNAIRE_PAGE_FRAGMENT_TAG) as? DataListener
         with(binding) {
-            tvQuestionTitle.text = question.title
-            tvQuestion.text = question.text
-            rvAnswers.adapter = AnswersAdapter(question.answers)
+            question?.let { question ->
+                tvQuestionTitle.text = question.title
+                tvQuestion.text = question.text
+                answersAdapter = AnswersAdapter(
+                    question.answers
+                ) { position ->
+                    updateAnswers(position)
+                }
+            }
+            rvAnswers.adapter = answersAdapter
         }
+    }
+
+    private fun updateAnswers(position: Int) {
+        answersAdapter?.answers?.let { list ->
+            val prev = list.indexOfFirst { answer -> answer.isChecked }
+            if (prev != -1) {
+                list[prev].isChecked = false
+                answersAdapter?.notifyItemChanged(prev)
+            } else {
+                arguments?.let {
+                    sendData(it.getInt(ParamsKey.QUESTION_POSITION_KEY))
+                }
+            }
+            list[position].isChecked = true
+            answersAdapter?.notifyItemChanged(position)
+        }
+    }
+
+    private fun sendData(answerPosition: Int) {
+        dataListener?.onDataReceived(answerPosition)
     }
 
     override fun onDestroyView() {

@@ -16,6 +16,7 @@ import com.itis.android_tasks.databinding.FragmentStartPageBinding
 import com.itis.android_tasks.R
 import com.itis.android_tasks.base.BaseActivity
 import com.itis.android_tasks.utils.ActionType
+import com.itis.android_tasks.utils.Constants
 import com.itis.android_tasks.utils.TextWatcherActionType
 
 class StartPageFragment : Fragment(R.layout.fragment_start_page) {
@@ -28,7 +29,7 @@ class StartPageFragment : Fragment(R.layout.fragment_start_page) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentStartPageBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -45,7 +46,7 @@ class StartPageFragment : Fragment(R.layout.fragment_start_page) {
     private fun validateQuestionsAmount(questionsAmount: String): Boolean {
         return !(questionsAmount.isEmpty() || questionsAmount[0] == '0' || Integer.parseInt(
             questionsAmount
-        ) > 30)
+        ) > Constants.MAX_QUESTIONS)
     }
 
     private fun validateAll(phone: String, questionsAmount: String): Boolean {
@@ -60,13 +61,14 @@ class StartPageFragment : Fragment(R.layout.fragment_start_page) {
                 private fun doSetTextTransaction(
                     input: CharSequence,
                     action: TextWatcherActionType,
-                    selection: Int
+                    selection: Int,
+                    count: Int
                 ) {
                     etPhone.removeTextChangedListener(this)
                     etPhone.setText(input.let {
                         when (action) {
                             TextWatcherActionType.ADD -> {
-                                addNumbersAutocomplete(input, selection)
+                                addNumbersAutocomplete(input, selection, count)
                             }
 
                             TextWatcherActionType.REMOVE -> {
@@ -80,13 +82,11 @@ class StartPageFragment : Fragment(R.layout.fragment_start_page) {
 
                 private fun addNumbersAutocomplete(
                     input: CharSequence,
-                    selection: Int
+                    selection: Int,
+                    count: Int
                 ): CharSequence {
                     var inputModified = input
-                    if (input.toString() == "+7 (9") {
-                        return input
-                    }
-                    if (selection != input.length) {
+                    if (selection != input.length && count <= 1) {
                         input.subSequence(selection, selection + 1).let {
                             inputModified = input.removeRange(selection, selection + 1)
                                 .toString() + it
@@ -124,7 +124,7 @@ class StartPageFragment : Fragment(R.layout.fragment_start_page) {
                 ) {
                     input?.let {
                         if (after == 0) {
-                            doSetTextTransaction(input, TextWatcherActionType.REMOVE, start)
+                            doSetTextTransaction(input, TextWatcherActionType.REMOVE, start, count)
                         }
                     }
                 }
@@ -137,7 +137,7 @@ class StartPageFragment : Fragment(R.layout.fragment_start_page) {
                 ) {
                     input?.let {
                         if (before == 0) {
-                            doSetTextTransaction(input, TextWatcherActionType.ADD, start)
+                            doSetTextTransaction(input, TextWatcherActionType.ADD, start, count)
                         }
                     }
                 }
@@ -147,6 +147,8 @@ class StartPageFragment : Fragment(R.layout.fragment_start_page) {
                         if (validatePhone(input.toString())) {
                             tilPhone.error = ""
                         }
+                        btnStart.isEnabled =
+                            validateAll(input.toString(), etQuestionsAmount.text.toString())
                     }
                 }
             })
@@ -154,30 +156,29 @@ class StartPageFragment : Fragment(R.layout.fragment_start_page) {
             etPhone.setOnFocusChangeListener { _, isFocused ->
                 if (!isFocused) {
                     if (!validatePhone(etPhone.text.toString())) {
-                        tilPhone.error = "Phone number must contain 10 digits"
+                        tilPhone.error = "phone number must contain 10 digits"
                     }
                 } else if (etPhone.text.isEmpty()) {
                     etPhone.setText("+7 (9")
                 }
-                btnStart.isEnabled =
-                    validateAll(etPhone.text.toString(), etQuestionsAmount.text.toString())
             }
 
             etQuestionsAmount.addTextChangedListener {
                 if (!validateQuestionsAmount(etQuestionsAmount.text.toString())) {
-                    tilQuestionsAmount.error = "enter number of questions between 1 and 30"
+                    tilQuestionsAmount.error = "enter number of questions between 1 and ${Constants.MAX_QUESTIONS}"
                 } else {
                     tilQuestionsAmount.error = ""
                 }
                 btnStart.isEnabled =
                     validateAll(etPhone.text.toString(), etQuestionsAmount.text.toString())
             }
+
             btnStart.setOnClickListener {
                 (requireActivity() as BaseActivity).goToScreen(
                     ActionType.REPLACE,
                     QuestionnairePageFragment.newInstance(Integer.parseInt(etQuestionsAmount.text.toString())),
                     QuestionnairePageFragment.QUESTIONNAIRE_PAGE_FRAGMENT_TAG,
-                    false
+                    true
                 )
             }
         }

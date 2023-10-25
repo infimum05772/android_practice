@@ -8,11 +8,13 @@ import com.itis.android_tasks.model.Answer
 import com.itis.android_tasks.ui.holder.AnswerItem
 
 class AnswersAdapter(
-    private var answers: List<Answer>,
+    var answers: List<Answer>,
+    private val onCheckedChange: (Int) -> Unit
 ) : RecyclerView.Adapter<AnswerItem>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnswerItem = AnswerItem(
-        ItemAnswerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        ItemAnswerBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+        onCheckedChange
     )
 
     override fun getItemCount(): Int {
