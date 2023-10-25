@@ -1,6 +1,5 @@
 package com.itis.android_tasks.ui.fragments
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +25,9 @@ class QuestionnairePageFragment : Fragment(R.layout.fragment_questionnaire_page)
     private var questions: List<Question>? = null
 
     private var answered: MutableList<Boolean> = mutableListOf()
+
+    private var visibilityTerms: (Int) -> Boolean =
+        { pos -> pos == answered.size }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,8 +61,11 @@ class QuestionnairePageFragment : Fragment(R.layout.fragment_questionnaire_page)
                                 ViewPager2.OnPageChangeCallback() {
 
                                 override fun onPageSelected(position: Int) {
-                                    if (position == questionCount || btnFinish.isEnabled) {
+                                    if (visibilityTerms.invoke(position)) {
                                         btnFinish.visibility = View.VISIBLE
+                                        if (btnFinish.isEnabled) {
+                                            visibilityTerms = { _ -> btnFinish.isEnabled }
+                                        }
                                     } else {
                                         btnFinish.visibility = View.GONE
                                     }
@@ -105,7 +110,12 @@ class QuestionnairePageFragment : Fragment(R.layout.fragment_questionnaire_page)
     override fun onDataReceived(position: Int) {
         answered[position] = true
         if (answered.all { question -> question }) {
-            binding.btnFinish.isEnabled = true
+            with(binding) {
+                btnFinish.isEnabled = true
+                if (position == answered.size - 1) {
+                    visibilityTerms = { _ -> btnFinish.isEnabled }
+                }
+            }
         }
     }
 }

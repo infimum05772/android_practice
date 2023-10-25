@@ -2,14 +2,10 @@ package com.itis.android_tasks.ui.fragments
 
 import android.os.Bundle
 import android.text.Editable
-import android.text.InputType
-import android.text.Selection
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.itis.android_tasks.databinding.FragmentStartPageBinding
@@ -87,8 +83,8 @@ class StartPageFragment : Fragment(R.layout.fragment_start_page) {
                 ): CharSequence {
                     var inputModified = input
                     if (selection != input.length && count <= 1) {
-                        input.subSequence(selection, selection + 1).let {
-                            inputModified = input.removeRange(selection, selection + 1)
+                        input.subSequence(selection, selection + count).let {
+                            inputModified = input.removeRange(selection, selection + count)
                                 .toString() + it
                         }
                     }

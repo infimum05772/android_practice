@@ -8,7 +8,6 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.itis.android_tasks.adapter.AnswersAdapter
 import com.itis.android_tasks.databinding.FragmentQuestionPageBinding
-import com.itis.android_tasks.model.Answer
 import com.itis.android_tasks.model.Question
 import com.itis.android_tasks.utils.DataListener
 import com.itis.android_tasks.utils.ParamsKey
