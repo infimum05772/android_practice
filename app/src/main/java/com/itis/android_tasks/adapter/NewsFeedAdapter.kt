@@ -1,6 +1,7 @@
 package com.itis.android_tasks.adapter
 
 import android.view.LayoutInflater
+import android.view.View.OnLongClickListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
@@ -24,7 +25,8 @@ import java.lang.RuntimeException
 class NewsFeedAdapter (
     private val onNewsClicked: ((NewsModel) -> Unit),
     private val onLikeClicked: ((Int, NewsModel) -> Unit),
-    private val onAddButtonClicked: () -> Unit
+    private val onAddButtonClicked: () -> Unit,
+    private val onDelete: ((Int, NewsModel) -> Unit),
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var newsList = mutableListOf<NewsFeedObjectModel>()
@@ -39,7 +41,7 @@ class NewsFeedAdapter (
                 )
         R.layout.item_news -> NewsItem (
             ItemNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false),
-            onNewsClicked, onLikeClicked
+            onNewsClicked, onLikeClicked, onDelete
         )
         else -> throw RuntimeException("Unknown item in NewsFeedAdapter")
     }

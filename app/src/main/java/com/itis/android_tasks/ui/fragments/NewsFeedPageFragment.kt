@@ -9,8 +9,11 @@ import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.itis.android_tasks.R
 import com.itis.android_tasks.adapter.NewsFeedAdapter
 import com.itis.android_tasks.adapter.decorations.GridHorizontalDecorator
@@ -22,6 +25,7 @@ import com.itis.android_tasks.model.AddButtonModel
 import com.itis.android_tasks.model.DateModel
 import com.itis.android_tasks.model.NewsFeedObjectModel
 import com.itis.android_tasks.model.NewsModel
+import com.itis.android_tasks.ui.holder.NewsItem
 import com.itis.android_tasks.utils.ActionType
 import com.itis.android_tasks.utils.Constants
 import com.itis.android_tasks.utils.NewsGenerator
@@ -56,7 +60,12 @@ class NewsFeedPageFragment : Fragment(R.layout.fragment_news_feed_page), NewsToA
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initViews() {
-        newsAdapter = NewsFeedAdapter(::onItemClick, ::onLikeClicked, ::onAddButtonClicked)
+        newsAdapter = NewsFeedAdapter(
+            ::onItemClick,
+            ::onLikeClicked,
+            ::onAddButtonClicked,
+            ::onDelete
+        )
         with(binding) {
             context?.let { cont ->
                 arguments?.let { args ->
@@ -69,6 +78,35 @@ class NewsFeedPageFragment : Fragment(R.layout.fragment_news_feed_page), NewsToA
                             false
                         )
                         rvNews.addItemDecoration(ListHorizontalDecorator(16.getValueInPx(resources.displayMetrics)))
+
+                        ItemTouchHelper(object : ItemTouchHelper.Callback() {
+                            override fun getMovementFlags(
+                                recyclerView: RecyclerView,
+                                viewHolder: RecyclerView.ViewHolder
+                            ): Int = when (viewHolder) {
+                                is NewsItem -> makeMovementFlags(0, ItemTouchHelper.LEFT)
+                                else -> 0
+                            }
+
+                            override fun onMove(
+                                recyclerView: RecyclerView,
+                                viewHolder: RecyclerView.ViewHolder,
+                                target: RecyclerView.ViewHolder
+                            ): Boolean {
+                                return false
+                            }
+
+                            override fun onSwiped(
+                                viewHolder: RecyclerView.ViewHolder,
+                                direction: Int
+                            ) {
+                                val position = viewHolder.adapterPosition
+                                (newsFeed[position] as? NewsModel)?.let { news ->
+                                    removeNews(position, news)
+                                }
+                            }
+                        }).attachToRecyclerView(rvNews)
+
                     } else {
                         rvNews.layoutManager = GridLayoutManager(requireContext(), 2).apply {
                             spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
@@ -93,6 +131,10 @@ class NewsFeedPageFragment : Fragment(R.layout.fragment_news_feed_page), NewsToA
                 }
             }
         }
+    }
+
+    private fun onDelete(position: Int, news: NewsModel) {
+        removeNews(position, news)
     }
 
     private fun onItemClick(news: NewsModel) {
@@ -140,6 +182,18 @@ class NewsFeedPageFragment : Fragment(R.layout.fragment_news_feed_page), NewsToA
         const val NEWS_FEED_PAGE_FRAGMENT_TAG = "NEWS_FEED_PAGE_FRAGMENT_TAG"
         fun newInstance(newsCount: Int) = NewsFeedPageFragment().apply {
             arguments = bundleOf(ParamsKey.NEWS_COUNT_KEY to newsCount)
+        }
+    }
+
+    private fun removeNews(position: Int, news: NewsModel) {
+        newsFeed.removeAt(position)
+        newsAdapter?.setItems(newsFeed)
+        this.view?.let {
+            Snackbar.make(it, R.string.deleting_news_question, Snackbar.LENGTH_LONG)
+                .setAction(R.string.undo_btn) {
+                    newsFeed.add(position, news)
+                    newsAdapter?.setItems(newsFeed)
+                }.show()
         }
     }
 

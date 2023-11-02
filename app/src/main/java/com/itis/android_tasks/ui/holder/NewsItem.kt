@@ -1,5 +1,7 @@
 package com.itis.android_tasks.ui.holder
 
+import android.view.View
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.itis.android_tasks.R
 import com.itis.android_tasks.databinding.ItemNewsBinding
@@ -8,9 +10,11 @@ import com.itis.android_tasks.model.NewsModel
 class NewsItem(
     private val viewBinding: ItemNewsBinding,
     private val onNewsClicked: ((NewsModel) -> Unit),
-    private val onLikeClicked: ((Int, NewsModel) -> Unit)
+    private val onLikeClicked: ((Int, NewsModel) -> Unit),
+    private val onDelete: ((Int, NewsModel) -> Unit),
 ) : RecyclerView.ViewHolder(viewBinding.root) {
     private var item: NewsModel? = null
+    private var wantToDelete: Boolean = true
 
     init {
         viewBinding.root.setOnClickListener {
@@ -20,6 +24,11 @@ class NewsItem(
             this.item?.let { newsModel ->
                 newsModel.isFavorite = !newsModel.isFavorite
                 onLikeClicked(adapterPosition, newsModel)
+            }
+        }
+        viewBinding.ivDelete.setOnClickListener {
+            this.item?.let { newsModel ->
+                onDelete(adapterPosition, newsModel)
             }
         }
     }
@@ -33,6 +42,11 @@ class NewsItem(
                 ivImage.setImageResource(res)
             }
             changeLikeBtnStatus(isChecked = item.isFavorite)
+            root.setOnLongClickListener {
+                viewBinding.ivDelete.isVisible = wantToDelete
+                wantToDelete = !wantToDelete
+                true
+            }
         }
     }
 
