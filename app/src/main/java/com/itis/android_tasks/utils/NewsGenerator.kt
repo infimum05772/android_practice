@@ -17,13 +17,13 @@ object NewsGenerator {
         R.drawable.news7,
         R.drawable.news8
     )
+    private var index: Int = 0
 
     fun getNews(ctx: Context, newsCount: Int): MutableList<NewsModel> {
         val titles = ctx.resources.getStringArray(R.array.news_titles)
         val descriptions = ctx.resources.getStringArray(R.array.news_desc)
 
         val resultList = mutableListOf<NewsModel>()
-        var index = 0
         repeat(newsCount) {
             val newIndexTitle = Random.nextInt(0, titles.size)
             val newIndexDesc = Random.nextInt(0, descriptions.size)
