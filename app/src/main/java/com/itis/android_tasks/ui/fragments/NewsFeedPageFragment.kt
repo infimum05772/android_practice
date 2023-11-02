@@ -197,7 +197,6 @@ class NewsFeedPageFragment : Fragment(R.layout.fragment_news_feed_page), NewsToA
                 .setAction(R.string.undo_btn) {
                     newsFeed.add(position, news)
                     newsAdapter?.setItems(newsFeed)
-                    newsAdapter?.updateItem(position, news)
                 }.show()
         }
     }
