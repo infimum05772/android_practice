@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="news_titles">
+        <item>Breaking: Major Fire Breaks Out in City Center</item>
+        <item>New Study Reveals Alarming Health Impact of Air Pollution</item>
+        <item>Global Stocks Plummet as Trade War Escalates</item>
+        <item>Celebrity Couple Announces Split After 10 Years of Marriage</item>
+        <item>Scientists Make Groundbreaking Discovery in Cancer Research</item>
+        <item>Powerful Earthquake Strikes Pacific Coast, Tsunami Warning Issued</item>
+        <item>Government Introduces New Tax Reform Bill</item>
+        <item>Massive Cyberattack Targets Global Banks</item>
+        <item>Local Sports Team Wins Championship Title</item>
+        <item>New Smartphone with Revolutionary Features Released</item>
+        <item>High-profile Corruption Scandal Rocks Political Establishment</item>
+        <item>Record-breaking Heatwave Sweeps Across the Country</item>
+        <item>Prominent Public Figure Arrested in Corruption Probe</item>
+        <item>Technology Giant Unveils Groundbreaking Innovation</item>
+        <item>Historic Landmark Destroyed in Devastating Fire</item>
+        <item>School Shooting Claims Multiple Lives, Community in Shock</item>
+        <item>Controversial Policy Sparks Nationwide Protests</item>
+        <item>Top Diplomat Resigns Amid Growing Crisis</item>
+        <item>Pop Star\'s New Album Tops Charts Worldwide</item>
+        <item>Deadly Outbreak of Virus Spreads Across Multiple Countries</item>
+        <item>Economy Shows Signs of Recovery, Unemployment Rate Drops</item>
+        <item>International Peace Summit Ends in Disappointment</item>
+        <item>Fierce Storm Causes Widespread Damage, Power Outages</item>
+        <item>Political Scandal Rocks Presidential Campaign</item>
+        <item>Groundbreaking Research Offers Hope for Alzheimer\'s Treatment</item>
+        <item>High-profile Trial Begins, Celebrity Defendant Faces Charges</item>
+        <item>New Study Reveals Rising Obesity Rates Among Children</item>
+        <item>Historic Peace Agreement Signed Between Rival Nations</item>
+        <item>Deadly Terrorist Attack Targets Major Tourist Destination</item>
+        <item>Government Announces Major Infrastructure Development Project</item>
+        <item>Tech Company Faces Massive Data Breach, Millions Affected</item>
+        <item>Celebrity Chef Launches New Restaurant Venture</item>
+        <item>New Study Links Excessive Screen Time to Mental Health Issues</item>
+        <item>Deadly Wildfires Rage Across Forested Areas</item>
+        <item>Political Party Sweeps Elections with Landslide Victory</item>
+        <item>Successful Rescue Mission Saves Stranded Hikers</item>
+        <item>Prominent Scientist Wins Nobel Prize in Physics</item>
+        <item>Global Humanitarian Crisis Demands Urgent Action</item>
+        <item>International Trade Agreement Sparks Controversy</item>
+        <item>Groundbreaking Scientific Discovery Promises Renewable Energy Revolution</item>
+        <item>Major Transportation Strike Disrupts Commute for Millions</item>
+        <item>Local Community Comes Together to Rebuild After Natural Disaster</item>
+        <item>Prominent Business Leader Indicted on Fraud Charges</item>
+        <item>New Drug Shows Promise in Treating Rare Disease</item>
+        <item>Sports Superstar Retires, Leaves Legacy of Achievement</item>
+    </string-array>
+    <string-array name="news_desc">
+        <item>Breaking news: Major earthquake hits coastal city, causing widespread destruction.</item>
+        <item>Political scandal rocks nation as high-ranking official faces corruption charges.</item>
+        <item>New study reveals alarming levels of pollution in major metropolitan area.</item>
+        <item>Local hero saves child from burning building, hailed as a true hero.</item>
+        <item>Groundbreaking medical research offers hope for new cancer treatment.</item>
+        <item>Celebrity couple announces surprise engagement, fans eagerly await wedding details.</item>
+        <item>Massive cyberattack targets global corporations, highlighting vulnerability of digital systems.</item>
+        <item>Renowned artist unveils stunning new masterpiece at exclusive gallery exhibit.</item>
+        <item>Up-and-coming singer-songwriter releases highly anticipated debut album.</item>
+        <item>City implements new recycling program to combat environmental issues.</item>
+        <item>Historic landmark undergoes extensive restoration, preserving cultural heritage.</item>
+        <item>Sports team makes triumphant comeback, securing a spot in championship finals.</item>
+        <item>Health officials warn of new contagious virus, urge public to take precautions.</item>
+        <item>Tech company launches revolutionary new product, set to disrupt industry.</item>
+        <item>Local charity surpasses fundraising goal, making a positive impact on the community.</item>
+        <item>Film director receives prestigious award for groundbreaking work.</item>
+        <item>New safety regulations implemented to prevent workplace accidents.</item>
+        <item>Nobel Prize awarded to scientist for groundbreaking research in physics.</item>
+        <item>Tensions rise between neighboring countries as territorial dispute escalates.</item>
+        <item>Business tycoon to launch ambitious space tourism venture.</item>
+        <item>Fashion designer debuts highly anticipated collection at international fashion week.</item>
+        <item>Political leader proposes controversial legislation, sparking heated debate.</item>
+        <item>Global initiative aims to eradicate poverty and promote economic growth.</item>
+        <item>Epidemic outbreak leads to urgent vaccination campaign in affected regions.</item>
+        <item>Renewable energy project breaks ground, promising a greener future.</item>
+        <item>Popular reality TV show returns for highly anticipated new season.</item>
+        <item>Breaking news: International peace treaty signed, ending decades-long conflict.</item>
+        <item>Major sports event attracts millions of viewers from around the world.</item>
+        <item>New technology breakthrough promises to revolutionize everyday life.</item>
+        <item>City unveils ambitious plan for sustainable urban development.</item>
+        <item>Celebrities join forces to raise awareness for important social cause.</item>
+        <item>Cultural festival celebrates diversity and promotes unity.</item>
+        <item>Famous landmark voted as one of the new wonders of the world.</item>
+        <item>Scientists discover new species in unexplored rainforest.</item>
+        <item>Artificial intelligence system surpasses human capabilities in groundbreaking study.</item>
+        <item>Renowned chef opens innovative restaurant, pushing culinary boundaries.</item>
+        <item>Historic discovery sheds new light on ancient civilization.</item>
+        <item>Humanitarian organization provides aid to victims of natural disaster.</item>
+        <item>Innovative startup secures major funding to develop groundbreaking technology.</item>
+        <item>Acclaimed author releases highly anticipated new novel, captivating readers.</item>
+        <item>City hosts international conference on climate change and sustainability.</item>
+        <item>Local school wins national championship in academic competition.</item>
+        <item>Alternative medicine gains popularity as people seek holistic approach to health.</item>
+        <item>Exciting new art installation transforms city\'s urban landscape.</item>
+        <item>Groundbreaking archaeological discovery reveals ancient secrets.</item>
+        <item>Fashion industry pioneers sustainable and ethical practices.</item>
+        <item>Medical breakthrough offers hope for patients with rare genetic disorder.</item>
+    </string-array>
+</resources>
