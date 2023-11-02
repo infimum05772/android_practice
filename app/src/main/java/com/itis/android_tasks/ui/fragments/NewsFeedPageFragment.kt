@@ -60,16 +60,11 @@ class NewsFeedPageFragment : Fragment(R.layout.fragment_news_feed_page), NewsToA
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initViews() {
-        newsAdapter = NewsFeedAdapter(
-            ::onItemClick,
-            ::onLikeClicked,
-            ::onAddButtonClicked,
-            ::onDelete
-        )
         with(binding) {
             context?.let { cont ->
                 arguments?.let { args ->
                     val newsCount = args.getInt(ParamsKey.NEWS_COUNT_KEY)
+                    val isGridLayoutManager: Boolean
 
                     if (newsCount <= 12) {
                         rvNews.layoutManager = LinearLayoutManager(
@@ -77,6 +72,7 @@ class NewsFeedPageFragment : Fragment(R.layout.fragment_news_feed_page), NewsToA
                             LinearLayoutManager.VERTICAL,
                             false
                         )
+                        isGridLayoutManager = false
                         rvNews.addItemDecoration(ListHorizontalDecorator(16.getValueInPx(resources.displayMetrics)))
 
                         ItemTouchHelper(object : ItemTouchHelper.Callback() {
@@ -115,11 +111,20 @@ class NewsFeedPageFragment : Fragment(R.layout.fragment_news_feed_page), NewsToA
                                     else Constants.DELIMITER_SPAN
                             }
                         }
+                        isGridLayoutManager = true
                         rvNews.addItemDecoration(GridHorizontalDecorator(8.getValueInPx(resources.displayMetrics)))
 
                     }
 
                     rvNews.addItemDecoration(ListVerticalDecorator(4.getValueInPx(resources.displayMetrics)))
+
+                    newsAdapter = NewsFeedAdapter(
+                        ::onItemClick,
+                        ::onLikeClicked,
+                        ::onAddButtonClicked,
+                        isGridLayoutManager,
+                        ::onDelete
+                    )
 
                     rvNews.adapter = newsAdapter
 

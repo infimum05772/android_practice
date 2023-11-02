@@ -26,6 +26,7 @@ class NewsFeedAdapter (
     private val onNewsClicked: ((NewsModel) -> Unit),
     private val onLikeClicked: ((Int, NewsModel) -> Unit),
     private val onAddButtonClicked: () -> Unit,
+    private val isGridLayoutManager: Boolean,
     private val onDelete: ((Int, NewsModel) -> Unit),
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -41,7 +42,7 @@ class NewsFeedAdapter (
                 )
         R.layout.item_news -> NewsItem (
             ItemNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false),
-            onNewsClicked, onLikeClicked, onDelete
+            onNewsClicked, onLikeClicked, isGridLayoutManager, onDelete
         )
         else -> throw RuntimeException("Unknown item in NewsFeedAdapter")
     }
