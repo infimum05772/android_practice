@@ -15,7 +15,6 @@ class NewsItem(
     private val onDelete: ((Int, NewsModel) -> Unit),
 ) : RecyclerView.ViewHolder(viewBinding.root) {
     private var item: NewsModel? = null
-    private var wantToDelete: Boolean = true
 
     init {
         if (isGridLayoutManager) {
@@ -45,14 +44,19 @@ class NewsItem(
                 ivImage.setImageResource(res)
             }
             changeLikeBtnStatus(isChecked = item.isFavorite)
+            changeWantToDeleteStatus(isChecked = item.wantToDelete)
             if (isGridLayoutManager) {
                 root.setOnLongClickListener {
-                    viewBinding.ivDelete.isVisible = wantToDelete
-                    wantToDelete = !wantToDelete
+                    item.wantToDelete = !item.wantToDelete
+                    changeWantToDeleteStatus(item.wantToDelete)
                     true
                 }
             }
         }
+    }
+
+    fun changeWantToDeleteStatus(isChecked: Boolean) {
+        viewBinding.ivDelete.isVisible = isChecked
     }
 
     fun changeLikeBtnStatus(isChecked: Boolean) {

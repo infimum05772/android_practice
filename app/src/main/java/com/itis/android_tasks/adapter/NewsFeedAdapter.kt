@@ -1,13 +1,10 @@
 package com.itis.android_tasks.adapter
 
+import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View.OnLongClickListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.itis.android_tasks.R
 import com.itis.android_tasks.adapter.diffutil.NewsDiffUtil
 import com.itis.android_tasks.databinding.ItemAddButtonBinding
@@ -20,6 +17,7 @@ import com.itis.android_tasks.model.NewsModel
 import com.itis.android_tasks.ui.holder.AddButtonItem
 import com.itis.android_tasks.ui.holder.DateItem
 import com.itis.android_tasks.ui.holder.NewsItem
+import com.itis.android_tasks.utils.ParamsKey
 import java.lang.RuntimeException
 
 class NewsFeedAdapter (
@@ -57,8 +55,9 @@ class NewsFeedAdapter (
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>) {
         if (payloads.isNotEmpty()) {
-            (payloads.first() as? Boolean)?.let {
-                (holder as? NewsItem)?.changeLikeBtnStatus(it)
+            (payloads.first() as? Bundle)?.let {
+                (holder as? NewsItem)?.changeLikeBtnStatus(it.getBoolean(ParamsKey.LIKE_DIFF_KEY))
+                (holder as? NewsItem)?.changeWantToDeleteStatus(it.getBoolean(ParamsKey.DELETE_DIFF_KEY))
             }
         }
         super.onBindViewHolder(holder, position, payloads)
@@ -85,6 +84,9 @@ class NewsFeedAdapter (
 
     fun updateItem(position: Int, item: NewsModel) {
         this.newsList[position] = item
-        notifyItemChanged(position, item.isFavorite)
+        val diff = Bundle()
+        diff.putBoolean(ParamsKey.LIKE_DIFF_KEY, item.isFavorite)
+        diff.putBoolean(ParamsKey.DELETE_DIFF_KEY, item.wantToDelete)
+        notifyItemChanged(position, diff)
     }
 }

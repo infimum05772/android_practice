@@ -8,7 +8,8 @@ data class NewsModel(
     val title: String,
     val desc: String,
     @DrawableRes val newsImage: Int? = null,
-    var isFavorite: Boolean
+    var isFavorite: Boolean,
+    var wantToDelete: Boolean
 ) : NewsFeedObjectModel, Serializable {
     override fun hashCode(): Int {
         var result = title.hashCode()

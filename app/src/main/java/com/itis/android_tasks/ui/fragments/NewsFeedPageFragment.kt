@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.itis.android_tasks.R
 import com.itis.android_tasks.adapter.NewsFeedAdapter
@@ -140,6 +139,7 @@ class NewsFeedPageFragment : Fragment(R.layout.fragment_news_feed_page), NewsToA
 
     private fun onDelete(position: Int, news: NewsModel) {
         removeNews(position, news)
+        newsAdapter?.updateItem(position, news)
     }
 
     private fun onItemClick(news: NewsModel) {

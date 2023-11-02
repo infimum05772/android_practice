@@ -34,7 +34,8 @@ object NewsGenerator {
                     titles[newIndexTitle],
                     descriptions[newIndexDesc],
                     images[newIndexImage],
-                    false
+                    isFavorite = false,
+                    wantToDelete = false
                 )
             )
         }
