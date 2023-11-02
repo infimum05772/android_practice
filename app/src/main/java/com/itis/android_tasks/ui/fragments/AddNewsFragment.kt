@@ -9,8 +9,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.itis.android_tasks.R
 import com.itis.android_tasks.databinding.FragmentAddNewsBinding
 import com.itis.android_tasks.utils.Constants
+import com.itis.android_tasks.utils.NewsToAddAmountListener
 
 class AddNewsFragment : BottomSheetDialogFragment(R.layout.fragment_add_news) {
+
+    private var dataListener: NewsToAddAmountListener? = null
 
     private var _binding: FragmentAddNewsBinding? = null
     private val binding: FragmentAddNewsBinding
@@ -35,8 +38,9 @@ class AddNewsFragment : BottomSheetDialogFragment(R.layout.fragment_add_news) {
     }
 
     private fun initViews() {
+        dataListener =
+            requireActivity().supportFragmentManager.findFragmentByTag(NewsFeedPageFragment.NEWS_FEED_PAGE_FRAGMENT_TAG) as? NewsToAddAmountListener
         with(binding) {
-
             etNewsToAddAmount.addTextChangedListener {
                 val isNewsAmountCorrect = validateNewsAmount(etNewsToAddAmount.text.toString())
                 if (!isNewsAmountCorrect) {
@@ -52,9 +56,14 @@ class AddNewsFragment : BottomSheetDialogFragment(R.layout.fragment_add_news) {
             }
 
             btnAdd.setOnClickListener {
+                sendData(etNewsToAddAmount.text.toString().toInt())
                 dismiss()
             }
         }
+    }
+
+    private fun sendData(count: Int) {
+        dataListener?.onDataReceived(count)
     }
 
     override fun onDestroyView() {

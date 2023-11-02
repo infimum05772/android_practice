@@ -3,6 +3,7 @@ package com.itis.android_tasks.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -11,6 +12,7 @@ import com.itis.android_tasks.adapter.diffutil.NewsDiffUtil
 import com.itis.android_tasks.databinding.ItemAddButtonBinding
 import com.itis.android_tasks.databinding.ItemDateBinding
 import com.itis.android_tasks.databinding.ItemNewsBinding
+import com.itis.android_tasks.model.AddButtonModel
 import com.itis.android_tasks.model.DateModel
 import com.itis.android_tasks.model.NewsFeedObjectModel
 import com.itis.android_tasks.model.NewsModel
@@ -42,18 +44,10 @@ class NewsFeedAdapter (
         else -> throw RuntimeException("Unknown item in NewsFeedAdapter")
     }
 
-    private fun onFullSpan(holder: ViewHolder) {
-        val layoutParams = (holder.itemView.layoutParams as? StaggeredGridLayoutManager.LayoutParams)
-        layoutParams?.isFullSpan = true
-    }
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is AddButtonItem -> onFullSpan(holder)
-            is DateItem -> {
-                onFullSpan(holder)
-                (newsList[position] as? DateModel)?.let { holder.bindItem(it) }
-            }
+            is AddButtonItem -> {}
+            is DateItem -> (newsList[position] as? DateModel)?.let { holder.bindItem(it) }
             is NewsItem -> (newsList[position] as? NewsModel)?.let { holder.bindItem(item = it) }
         }
     }
@@ -65,6 +59,15 @@ class NewsFeedAdapter (
             }
         }
         super.onBindViewHolder(holder, position, payloads)
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return when (newsList[position]) {
+            is AddButtonModel -> R.layout.item_add_button
+            is DateModel -> R.layout.item_date
+            is NewsModel -> R.layout.item_news
+            else -> 0
+        }
     }
 
     override fun getItemCount(): Int = newsList.size

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.itis.android_tasks.R
@@ -15,17 +16,22 @@ import com.itis.android_tasks.adapter.NewsFeedAdapter
 import com.itis.android_tasks.adapter.decorations.GridHorizontalDecorator
 import com.itis.android_tasks.adapter.decorations.ListHorizontalDecorator
 import com.itis.android_tasks.adapter.decorations.ListVerticalDecorator
+import com.itis.android_tasks.base.BaseActivity
 import com.itis.android_tasks.databinding.FragmentNewsFeedPageBinding
 import com.itis.android_tasks.model.AddButtonModel
 import com.itis.android_tasks.model.DateModel
 import com.itis.android_tasks.model.NewsFeedObjectModel
 import com.itis.android_tasks.model.NewsModel
+import com.itis.android_tasks.utils.ActionType
+import com.itis.android_tasks.utils.Constants
 import com.itis.android_tasks.utils.NewsGenerator
+import com.itis.android_tasks.utils.NewsToAddAmountListener
 import com.itis.android_tasks.utils.ParamsKey
 import com.itis.android_tasks.utils.getValueInPx
 import java.time.LocalDate
+import kotlin.random.Random
 
-class NewsFeedPageFragment: Fragment(R.layout.fragment_news_feed_page) {
+class NewsFeedPageFragment : Fragment(R.layout.fragment_news_feed_page), NewsToAddAmountListener {
     private var _binding: FragmentNewsFeedPageBinding? = null
     private val binding: FragmentNewsFeedPageBinding
         get() = _binding!!
@@ -50,30 +56,52 @@ class NewsFeedPageFragment: Fragment(R.layout.fragment_news_feed_page) {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initViews() {
-        newsAdapter = NewsFeedAdapter({}, ::onLikeClicked, ::onAddButtonClicked)
+        newsAdapter = NewsFeedAdapter(::onItemClick, ::onLikeClicked, ::onAddButtonClicked)
         with(binding) {
-            context?.let {cont ->
+            context?.let { cont ->
                 arguments?.let { args ->
                     val newsCount = args.getInt(ParamsKey.NEWS_COUNT_KEY)
-                    val marginValue = 16.getValueInPx(resources.displayMetrics)
 
                     if (newsCount <= 12) {
-                        rvNews.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-                        rvNews.addItemDecoration(ListHorizontalDecorator(marginValue.getValueInPx(resources.displayMetrics)))
+                        rvNews.layoutManager = LinearLayoutManager(
+                            requireContext(),
+                            LinearLayoutManager.VERTICAL,
+                            false
+                        )
+                        rvNews.addItemDecoration(ListHorizontalDecorator(16.getValueInPx(resources.displayMetrics)))
                     } else {
-                        rvNews.layoutManager = StaggeredGridLayoutManager(marginValue / 8, LinearLayoutManager.VERTICAL)
-                        rvNews.addItemDecoration(GridHorizontalDecorator(marginValue / 2.getValueInPx(resources.displayMetrics)))
+                        rvNews.layoutManager = GridLayoutManager(requireContext(), 2).apply {
+                            spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                                override fun getSpanSize(position: Int) =
+                                    if (newsFeed[position] is NewsModel) Constants.NEWS_SPAN
+                                    else Constants.DELIMITER_SPAN
+                            }
+                        }
+                        rvNews.addItemDecoration(GridHorizontalDecorator(8.getValueInPx(resources.displayMetrics)))
+
                     }
 
-                    rvNews.addItemDecoration(ListVerticalDecorator(marginValue / 4.getValueInPx(resources.displayMetrics)))
+                    rvNews.addItemDecoration(ListVerticalDecorator(4.getValueInPx(resources.displayMetrics)))
 
                     rvNews.adapter = newsAdapter
 
-                    initNewsFeed(newsCount, NewsGenerator.getNews(cont, newsCount))
+                    if (newsFeed.isEmpty()) {
+                        initNewsFeed(newsCount, NewsGenerator.getNews(cont, newsCount))
+                    }
+
                     newsAdapter?.setItems(newsFeed)
                 }
             }
         }
+    }
+
+    private fun onItemClick(news: NewsModel) {
+        (requireActivity() as BaseActivity).goToScreen(
+            ActionType.REPLACE,
+            DetailsPageFragment.newInstance(news),
+            DetailsPageFragment.DETAILS_PAGE_FRAGMENT_TAG,
+            true
+        )
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -112,6 +140,16 @@ class NewsFeedPageFragment: Fragment(R.layout.fragment_news_feed_page) {
         const val NEWS_FEED_PAGE_FRAGMENT_TAG = "NEWS_FEED_PAGE_FRAGMENT_TAG"
         fun newInstance(newsCount: Int) = NewsFeedPageFragment().apply {
             arguments = bundleOf(ParamsKey.NEWS_COUNT_KEY to newsCount)
+        }
+    }
+
+    override fun onDataReceived(count: Int) {
+        context?.let {
+            val newsToAdd = NewsGenerator.getNews(it, count)
+            for (i in 0 until count) {
+                newsFeed.add(Random.nextInt(1, newsFeed.size + 1), newsToAdd[i])
+            }
+            newsAdapter?.setItems(newsFeed)
         }
     }
 }

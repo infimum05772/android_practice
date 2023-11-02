@@ -11,14 +11,15 @@ class NewsItem(
     private val onLikeClicked: ((Int, NewsModel) -> Unit)
 ) : RecyclerView.ViewHolder(viewBinding.root) {
     private var item: NewsModel? = null
+
     init {
         viewBinding.root.setOnClickListener {
-            this.item?.let(onNewsClicked)
+            this.item?.let { newsModel -> onNewsClicked(newsModel) }
         }
         viewBinding.ivStar.setOnClickListener {
-            this.item?.let {
-                it.isFavorite = !it.isFavorite
-                onLikeClicked(adapterPosition, it)
+            this.item?.let { newsModel ->
+                newsModel.isFavorite = !newsModel.isFavorite
+                onLikeClicked(adapterPosition, newsModel)
             }
         }
     }

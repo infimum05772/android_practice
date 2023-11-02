@@ -1,6 +1,7 @@
 package com.itis.android_tasks.model
 
 import androidx.annotation.DrawableRes
+import java.io.Serializable
 
 data class NewsModel(
     val id: Int,
@@ -8,7 +9,7 @@ data class NewsModel(
     val desc: String,
     @DrawableRes val newsImage: Int? = null,
     var isFavorite: Boolean
-) : NewsFeedObjectModel {
+) : NewsFeedObjectModel, Serializable {
     override fun hashCode(): Int {
         var result = title.hashCode()
         result = 31 * result + desc.hashCode()

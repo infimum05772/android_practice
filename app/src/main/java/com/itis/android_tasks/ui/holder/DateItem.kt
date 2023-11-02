@@ -11,7 +11,7 @@ class DateItem(
 
     fun bindItem(date: DateModel) {
         with(viewBinding) {
-            tvDate.text = date.toString()
+            tvDate.text = date.date.toString().replace("-", ".")
         }
     }
 }
