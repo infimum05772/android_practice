@@ -33,12 +33,8 @@ class NewsDiffUtil(
         val newItem = newItemsList[newItemPosition] as NewsModel
 
         val diff = Bundle()
-        if (oldItem.isFavorite != newItem.isFavorite ) {
-            diff.putBoolean(ParamsKey.LIKE_DIFF_KEY, newItem.isFavorite)
-        }
-        if (oldItem.wantToDelete != newItem.wantToDelete) {
-            diff.putBoolean(ParamsKey.DELETE_DIFF_KEY, newItem.wantToDelete)
-        }
+        diff.putBoolean(ParamsKey.LIKE_DIFF_KEY, newItem.isFavorite)
+        diff.putBoolean(ParamsKey.DELETE_DIFF_KEY, newItem.wantToDelete)
 
         return if (oldItem.isFavorite != newItem.isFavorite || oldItem.wantToDelete != newItem.wantToDelete) {
             diff

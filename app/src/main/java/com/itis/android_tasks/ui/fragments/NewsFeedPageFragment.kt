@@ -139,7 +139,6 @@ class NewsFeedPageFragment : Fragment(R.layout.fragment_news_feed_page), NewsToA
 
     private fun onDelete(position: Int, news: NewsModel) {
         removeNews(position, news)
-        newsAdapter?.updateItem(position, news)
     }
 
     private fun onItemClick(news: NewsModel) {
@@ -198,6 +197,7 @@ class NewsFeedPageFragment : Fragment(R.layout.fragment_news_feed_page), NewsToA
                 .setAction(R.string.undo_btn) {
                     newsFeed.add(position, news)
                     newsAdapter?.setItems(newsFeed)
+                    newsAdapter?.updateItem(position, news)
                 }.show()
         }
     }
