@@ -1,4 +1,4 @@
-package com.itis.myapplication
+package com.itis.android_tasks
 
 import org.junit.Test
 

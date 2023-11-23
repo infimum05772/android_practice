@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_coroutines_settings_page_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="@string/coroutines_settings_page_title"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/tv_coroutine_count"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/tv_coroutine_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="64dp"
+        android:text="@string/coroutines_count_label"
+        android:textColor="@color/colorText"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/sb_coroutines_count"
+        app:layout_constraintTop_toBottomOf="@id/tv_coroutines_settings_page_title" />
+
+    <SeekBar
+        android:id="@+id/sb_coroutines_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="64dp"
+        android:max="10"
+        app:layout_constraintBottom_toTopOf="@id/tv_coroutine_count_progress"
+        app:layout_constraintTop_toBottomOf="@id/tv_coroutine_count" />
+
+    <TextView
+        android:id="@+id/tv_coroutine_count_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="64dp"
+        android:gravity="center"
+        android:textColor="@color/colorText"
+        android:textSize="16sp"
+        android:layout_marginBottom="32dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/chb_async"
+        app:layout_constraintTop_toBottomOf="@id/sb_coroutines_count"
+        tools:text="1" />
+
+    <CheckBox
+        android:id="@+id/chb_async"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="64dp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/async_chb"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/chb_stop_on_bg"
+        app:layout_constraintTop_toBottomOf="@id/tv_coroutine_count_progress" />
+
+    <CheckBox
+        android:id="@+id/chb_stop_on_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="64dp"
+        android:text="@string/stop_on_background_chb"
+        android:layout_marginBottom="32dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/btn_start_coroutines"
+        app:layout_constraintTop_toBottomOf="@id/chb_async" />
+
+    <Button
+        android:id="@+id/btn_start_coroutines"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="@string/start_coroutines_btn"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chb_stop_on_bg" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
