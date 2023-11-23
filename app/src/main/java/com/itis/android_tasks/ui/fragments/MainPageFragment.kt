@@ -1,15 +1,23 @@
 package com.itis.android_tasks.ui.fragments
 
+import android.Manifest
+import android.Manifest.permission.POST_NOTIFICATIONS
+import android.content.pm.PackageManager
+import android.os.Build
+import android.os.Build.VERSION_CODES.TIRAMISU
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import com.itis.android_tasks.MainActivity
 import com.itis.android_tasks.R
 import com.itis.android_tasks.databinding.FragmentMainPageBinding
 import com.itis.android_tasks.model.settings.NotificationSettings
 import com.itis.android_tasks.utils.AirplaneModeChangingListener
+import com.itis.android_tasks.utils.NotificationHandler
 
 class MainPageFragment : Fragment(R.layout.fragment_main_page) {
 
@@ -19,6 +27,7 @@ class MainPageFragment : Fragment(R.layout.fragment_main_page) {
 
     private val notificationSettings: NotificationSettings = NotificationSettings
     private var airplaneModeChangingListener: AirplaneModeChangingListener? = null
+    private var notificationHandler : NotificationHandler? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +44,7 @@ class MainPageFragment : Fragment(R.layout.fragment_main_page) {
     }
 
     private fun initViews() {
+        notificationHandler = NotificationHandler(requireContext())
         with(binding) {
             airplaneModeChangingListener = AirplaneModeChangingListener(
                 requireContext(),
@@ -50,6 +60,16 @@ class MainPageFragment : Fragment(R.layout.fragment_main_page) {
         }
         initTitleChangedListener()
         initDescriptionChangedListener()
+
+        binding.btnShowNotification.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= TIRAMISU && ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED) {
+                (activity as? MainActivity)?.requestPermission(POST_NOTIFICATIONS)
+            }
+            notificationHandler?.createCustomNotification()
+        }
     }
 
     private fun initTitleChangedListener() {

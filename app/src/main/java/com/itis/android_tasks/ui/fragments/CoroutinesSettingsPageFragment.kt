@@ -1,11 +1,16 @@
 package com.itis.android_tasks.ui.fragments
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.itis.android_tasks.MainActivity
 import com.itis.android_tasks.R
 import com.itis.android_tasks.databinding.FragmentCoroutinesSettingsPageBinding
 import com.itis.android_tasks.model.settings.CoroutinesSettings
@@ -51,7 +56,13 @@ class CoroutinesSettingsPageFragment : Fragment(R.layout.fragment_coroutines_set
         initIsStoppedOnBackgroundStateChangedListener()
 
         binding.btnStartCoroutines.setOnClickListener {
-
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) != PackageManager.PERMISSION_GRANTED) {
+                (activity as? MainActivity)?.requestPermission(Manifest.permission.POST_NOTIFICATIONS)
+            }
+            (activity as? MainActivity)?.startCoroutines()
         }
     }
 

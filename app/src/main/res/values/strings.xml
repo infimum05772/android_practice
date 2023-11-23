@@ -22,6 +22,12 @@
     <string name="permission_notifications_dialog_message_rationale">The application cannot fully work without permission to post notifications.</string>
     <string name="permission_notifications_dialog_button">to settings</string>
     <string name="permission_notifications_dialog_rationale_button">OK</string>
+    <string name="cancelled_coroutines_count_log">Cancelled coroutines count: %1$d</string>
+    <string name="coroutines_notification_title">COROUTINES FINISH</string>
+    <string name="coroutines_notification_desc">my job here is done</string>
+    <string name="welcome_back_toast">welcome back :3</string>
+    <string name="notification_action_home">home</string>
+    <string name="notification_action_settings">settings</string>
 
     <string-array name="importance_names">
         <item>medium</item>

@@ -2,6 +2,8 @@ package com.itis.android_tasks
 
 import android.Manifest.permission.POST_NOTIFICATIONS
 import android.app.AlertDialog
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -10,10 +12,12 @@ import android.os.Build
 import android.os.Build.VERSION_CODES.TIRAMISU
 import android.os.Bundle
 import android.provider.Settings
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.itis.android_tasks.databinding.ActivityMainBinding
 import com.itis.android_tasks.ui.fragments.CoroutinesSettingsPageFragment
 import com.itis.android_tasks.ui.fragments.MainPageFragment
@@ -21,8 +25,17 @@ import com.itis.android_tasks.ui.fragments.NotificationSettingsPageFragment
 import com.itis.android_tasks.utils.ActionType
 import com.itis.android_tasks.utils.ParamsKey
 import com.itis.android_tasks.base.BaseActivity
+import com.itis.android_tasks.model.settings.CoroutinesSettings
 import com.itis.android_tasks.utils.AirplaneModeChangingListener
+import com.itis.android_tasks.utils.NotificationImportance
 import com.itis.android_tasks.utils.PermissionRequestHandler
+import com.itis.android_tasks.utils.StartCoroutinesManager
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : BaseActivity() {
 
@@ -33,6 +46,9 @@ class MainActivity : BaseActivity() {
 
     private var permissionRequestHandler: PermissionRequestHandler? = null
     private var airplaneModeChangingListener: AirplaneModeChangingListener? = null
+    private var startCoroutinesManager: StartCoroutinesManager? = null //to prevent the user from changing coroutine settings after startup
+
+    private var job: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +74,7 @@ class MainActivity : BaseActivity() {
         initTheme()
         initBottomNavigation()
         setUpPermissionHandler()
+        initNotificationChannels()
 
         if (savedInstanceState == null) {
             showSelectedFragment()
@@ -122,7 +139,7 @@ class MainActivity : BaseActivity() {
         )
     }
 
-    private fun requestPermission(permission: String) {
+    fun requestPermission(permission: String) {
         permissionRequestHandler?.requestPermission(permission)
     }
 
@@ -166,6 +183,25 @@ class MainActivity : BaseActivity() {
                     .show()
             }
         )
+    }
+
+    private fun initNotificationChannels() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            for (importance in NotificationImportance.values()) {
+                NotificationChannel(
+                    ParamsKey.DEFAULT_NOTIFICATION_CHANNEL_ID + importance.name,
+                    ParamsKey.DEFAULT_NOTIFICATION_CHANNEL_NAME + importance.name,
+                    importance.importance
+                ).also {
+                    (getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager)?.createNotificationChannel(it)
+                }
+            }
+        }
+    }
+    fun startCoroutines() {
+        startCoroutinesManager = StartCoroutinesManager(this, CoroutinesSettings)
+        job?.cancel()
+        job = startCoroutinesManager?.startCoroutines()
     }
 
     override fun goToScreen(
@@ -232,14 +268,41 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        intent?.extras?.let {
+            when (it.getString(ParamsKey.INTENT_KEY)) {
+                ParamsKey.INTENT_HOME_TOAST_VALUE -> {
+                    Toast.makeText(
+                        this,
+                        getString(R.string.welcome_back_toast),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                ParamsKey.INTENT_NOTIFICATION_SETTINGS_VALUE -> {
+                    navigateTo(
+                        NotificationSettingsPageFragment(),
+                        NotificationSettingsPageFragment.NOTIFICATION_SETTINGS_PAGE_FRAGMENT_TAG
+                    )
+                }
+                else -> {}
+            }
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        startCoroutinesManager?.let {
+            if (it.isStoppedOnBackground) {
+                job?.cancel()
+            }
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
         permissionRequestHandler = null
         this.unregisterReceiver(airplaneModeChangingListener?.receiver)
-    }
-
-    companion object {
-        private const val NOTIFICATIONS_REQUEST_CODE: Int = 12101
     }
 }
