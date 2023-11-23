@@ -23,7 +23,7 @@ class NotificationHandler(private val ctx: Context) {
             ctx,
             ParamsKey.INTENT_MAIN_REQUEST_CODE,
             intent,
-            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
     }
 

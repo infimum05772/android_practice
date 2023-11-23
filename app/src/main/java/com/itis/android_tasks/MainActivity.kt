@@ -17,25 +17,19 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import com.itis.android_tasks.base.BaseActivity
 import com.itis.android_tasks.databinding.ActivityMainBinding
+import com.itis.android_tasks.model.settings.CoroutinesSettings
 import com.itis.android_tasks.ui.fragments.CoroutinesSettingsPageFragment
 import com.itis.android_tasks.ui.fragments.MainPageFragment
 import com.itis.android_tasks.ui.fragments.NotificationSettingsPageFragment
 import com.itis.android_tasks.utils.ActionType
-import com.itis.android_tasks.utils.ParamsKey
-import com.itis.android_tasks.base.BaseActivity
-import com.itis.android_tasks.model.settings.CoroutinesSettings
 import com.itis.android_tasks.utils.AirplaneModeChangingListener
 import com.itis.android_tasks.utils.NotificationImportance
+import com.itis.android_tasks.utils.ParamsKey
 import com.itis.android_tasks.utils.PermissionRequestHandler
 import com.itis.android_tasks.utils.StartCoroutinesManager
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MainActivity : BaseActivity() {
 
@@ -46,7 +40,8 @@ class MainActivity : BaseActivity() {
 
     private var permissionRequestHandler: PermissionRequestHandler? = null
     private var airplaneModeChangingListener: AirplaneModeChangingListener? = null
-    private var startCoroutinesManager: StartCoroutinesManager? = null //to prevent the user from changing coroutine settings after startup
+    private var startCoroutinesManager: StartCoroutinesManager? =
+        null //to prevent the user from changing coroutine settings after startup
 
     private var job: Job? = null
 
@@ -55,12 +50,6 @@ class MainActivity : BaseActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater).also {
             setContentView(it.root)
         }
-
-//        supportActionBar?.let {
-//            it.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-//            it.setDisplayShowCustomEnabled(true)
-//            it.setCustomView(R.layout.action_bar)
-//        }
 
         airplaneModeChangingListener = AirplaneModeChangingListener(
             this,
@@ -193,11 +182,14 @@ class MainActivity : BaseActivity() {
                     ParamsKey.DEFAULT_NOTIFICATION_CHANNEL_NAME + importance.name,
                     importance.importance
                 ).also {
-                    (getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager)?.createNotificationChannel(it)
+                    (getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager)?.createNotificationChannel(
+                        it
+                    )
                 }
             }
         }
     }
+
     fun startCoroutines() {
         startCoroutinesManager = StartCoroutinesManager(this, CoroutinesSettings)
         job?.cancel()
@@ -279,12 +271,11 @@ class MainActivity : BaseActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
+
                 ParamsKey.INTENT_NOTIFICATION_SETTINGS_VALUE -> {
-                    navigateTo(
-                        NotificationSettingsPageFragment(),
-                        NotificationSettingsPageFragment.NOTIFICATION_SETTINGS_PAGE_FRAGMENT_TAG
-                    )
+                    binding.mainBnv.selectedItemId = R.id.item_notification_settings
                 }
+
                 else -> {}
             }
         }
