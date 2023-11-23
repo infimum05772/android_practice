@@ -49,7 +49,7 @@ class MainPageFragment : Fragment(R.layout.fragment_main_page) {
             airplaneModeChangingListener = AirplaneModeChangingListener(
                 requireContext(),
                 onAirplaneModeChanged = {
-                    binding.btnShowNotification.isEnabled = !it
+                    btnShowNotification.isEnabled = !it
                 }
             ).also {
                 it.onStartAirplaneModeCheck()

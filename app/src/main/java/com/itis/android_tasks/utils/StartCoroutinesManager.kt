@@ -34,7 +34,6 @@ class StartCoroutinesManager(
                                 doCoroutineTask()
                             }
                         }
-                        cancelledCoroutinesCount--
                     }
                 }
             }.onSuccess {
@@ -50,5 +49,6 @@ class StartCoroutinesManager(
 
     private suspend fun doCoroutineTask() {
         delay(1000)
+        cancelledCoroutinesCount--
     }
 }
