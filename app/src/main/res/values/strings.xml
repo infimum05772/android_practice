@@ -1,3 +1,43 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Super Duper HW4</string>
+    <string name="main_bn">main</string>
+    <string name="notification_settings_bn">notification settings</string>
+    <string name="coroutine_settings_bn">coroutine settings</string>
+    <string name="notification_title_hint">notification title</string>
+    <string name="notification_description_hint">notification description</string>
+    <string name="show_btn">show</string>
+    <string name="notification_settings_page_title">notification settings</string>
+    <string name="notification_importance_label">notification importance</string>
+    <string name="notifications_privacy_label">notifications privacy</string>
+    <string name="expandable_notification_text_chb">expandable notification text</string>
+    <string name="show_dialog_buttons_chb">show dialog buttons</string>
+    <string name="coroutines_settings_page_title">coroutines settings</string>
+    <string name="coroutines_count_label">coroutines count</string>
+    <string name="async_chb">async</string>
+    <string name="stop_on_background_chb">stop on background</string>
+    <string name="start_coroutines_btn">start</string>
+    <string name="no_network_access_tv">no network access</string>
+    <string name="permission_notifications_dialog_title">WARNING</string>
+    <string name="permission_notifications_dialog_message">Please provide permission in the settings.</string>
+    <string name="permission_notifications_dialog_message_rationale">The application cannot fully work without permission to post notifications.</string>
+    <string name="permission_notifications_dialog_button">to settings</string>
+    <string name="permission_notifications_dialog_rationale_button">OK</string>
+    <string name="cancelled_coroutines_count_log">Cancelled coroutines count: %1$d</string>
+    <string name="coroutines_notification_title">COROUTINES FINISH</string>
+    <string name="coroutines_notification_desc">my job here is done</string>
+    <string name="welcome_back_toast">welcome back :3</string>
+    <string name="notification_action_home">home</string>
+    <string name="notification_action_settings">settings</string>
+
+    <string-array name="importance_names">
+        <item>medium</item>
+        <item>high</item>
+        <item>urgent</item>
+    </string-array>
+
+    <string-array name="private_settings_names">
+        <item>public</item>
+        <item>secret</item>
+        <item>private</item>
+    </string-array>
 </resources>
