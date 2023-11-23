@@ -4,5 +4,6 @@
     <color name="colorPrimaryDark">#126059</color>
     <color name="colorAccent">#C87C64</color>
     <color name="colorText">#616161</color>
+    <color name="colorAirplaneMode">#06A596</color>
     <color name="colorBG">#B3000000</color>
 </resources>

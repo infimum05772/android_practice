@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.itis.android_tasks.R
 import com.itis.android_tasks.databinding.FragmentCoroutinesSettingsPageBinding
 import com.itis.android_tasks.model.settings.CoroutinesSettings
+import com.itis.android_tasks.utils.AirplaneModeChangingListener
 
 class CoroutinesSettingsPageFragment : Fragment(R.layout.fragment_coroutines_settings_page) {
 
@@ -17,6 +18,8 @@ class CoroutinesSettingsPageFragment : Fragment(R.layout.fragment_coroutines_set
         get() = _binding!!
 
     private val coroutinesSettings: CoroutinesSettings = CoroutinesSettings
+
+    private var airplaneModeChangingListener: AirplaneModeChangingListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +36,15 @@ class CoroutinesSettingsPageFragment : Fragment(R.layout.fragment_coroutines_set
     }
 
     private fun initViews() {
+        airplaneModeChangingListener = AirplaneModeChangingListener(
+            requireContext(),
+            onAirplaneModeChanged = {
+                binding.btnStartCoroutines.isEnabled = !it
+            }
+        ).also {
+            it.onStartAirplaneModeCheck()
+        }
+
         initCoroutinesSettings()
         initCoroutinesCountChangedListener()
         initIsAsyncStateChangedListener()
@@ -89,6 +101,7 @@ class CoroutinesSettingsPageFragment : Fragment(R.layout.fragment_coroutines_set
 
     override fun onDestroyView() {
         _binding = null
+        requireContext().unregisterReceiver(airplaneModeChangingListener?.receiver)
         super.onDestroyView()
     }
 

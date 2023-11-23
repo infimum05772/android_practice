@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.itis.android_tasks.R
 import com.itis.android_tasks.databinding.FragmentMainPageBinding
 import com.itis.android_tasks.model.settings.NotificationSettings
+import com.itis.android_tasks.utils.AirplaneModeChangingListener
 
 class MainPageFragment : Fragment(R.layout.fragment_main_page) {
 
@@ -17,6 +18,7 @@ class MainPageFragment : Fragment(R.layout.fragment_main_page) {
         get() = _binding!!
 
     private val notificationSettings: NotificationSettings = NotificationSettings
+    private var airplaneModeChangingListener: AirplaneModeChangingListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,6 +36,15 @@ class MainPageFragment : Fragment(R.layout.fragment_main_page) {
 
     private fun initViews() {
         with(binding) {
+            airplaneModeChangingListener = AirplaneModeChangingListener(
+                requireContext(),
+                onAirplaneModeChanged = {
+                    binding.btnShowNotification.isEnabled = !it
+                }
+            ).also {
+                it.onStartAirplaneModeCheck()
+            }
+
             etNotificationTitle.setText(notificationSettings.title)
             etNotificationDescription.setText(notificationSettings.description)
         }
@@ -55,6 +66,7 @@ class MainPageFragment : Fragment(R.layout.fragment_main_page) {
 
     override fun onDestroyView() {
         _binding = null
+        requireContext().unregisterReceiver(airplaneModeChangingListener?.receiver)
         super.onDestroyView()
     }
 

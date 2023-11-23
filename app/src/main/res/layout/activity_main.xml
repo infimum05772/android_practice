@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/no_network_access_tv"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorAirplaneMode"
             android:textSize="20sp" />
 
     </LinearLayout>

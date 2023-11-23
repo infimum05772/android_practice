@@ -17,9 +17,11 @@
     <string name="stop_on_background_chb">stop on background</string>
     <string name="start_coroutines_btn">start</string>
     <string name="no_network_access_tv">no network access</string>
-    <string name="permission_notifications_dialog_title">warning</string>
-    <string name="permission_notifications_dialog_message">The application cannot fully work without permission to post notifications. Please provide permission in the settings.</string>
+    <string name="permission_notifications_dialog_title">WARNING</string>
+    <string name="permission_notifications_dialog_message">Please provide permission in the settings.</string>
+    <string name="permission_notifications_dialog_message_rationale">The application cannot fully work without permission to post notifications.</string>
     <string name="permission_notifications_dialog_button">to settings</string>
+    <string name="permission_notifications_dialog_rationale_button">OK</string>
 
     <string-array name="importance_names">
         <item>medium</item>

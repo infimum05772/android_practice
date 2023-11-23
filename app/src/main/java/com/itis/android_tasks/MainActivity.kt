@@ -10,10 +10,9 @@ import android.os.Build
 import android.os.Build.VERSION_CODES.TIRAMISU
 import android.os.Bundle
 import android.provider.Settings
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.itis.android_tasks.databinding.ActivityMainBinding
 import com.itis.android_tasks.ui.fragments.CoroutinesSettingsPageFragment
@@ -22,6 +21,7 @@ import com.itis.android_tasks.ui.fragments.NotificationSettingsPageFragment
 import com.itis.android_tasks.utils.ActionType
 import com.itis.android_tasks.utils.ParamsKey
 import com.itis.android_tasks.base.BaseActivity
+import com.itis.android_tasks.utils.AirplaneModeChangingListener
 import com.itis.android_tasks.utils.PermissionRequestHandler
 
 class MainActivity : BaseActivity() {
@@ -32,6 +32,7 @@ class MainActivity : BaseActivity() {
     override val fragmentContainerId: Int = R.id.main_activity_container
 
     private var permissionRequestHandler: PermissionRequestHandler? = null
+    private var airplaneModeChangingListener: AirplaneModeChangingListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +46,14 @@ class MainActivity : BaseActivity() {
 //            it.setCustomView(R.layout.action_bar)
 //        }
 
+        airplaneModeChangingListener = AirplaneModeChangingListener(
+            this,
+            onAirplaneModeChanged = {
+                binding.llAirplaneMode.isVisible = it
+            }
+        ).also {
+            it.onStartAirplaneModeCheck()
+        }
         initThemeListener()
         initTheme()
         initBottomNavigation()
@@ -56,7 +65,7 @@ class MainActivity : BaseActivity() {
 
         if (Build.VERSION.SDK_INT >= TIRAMISU &&
             ContextCompat.checkSelfPermission(
-                baseContext,
+                this,
                 POST_NOTIFICATIONS
             ) != PackageManager.PERMISSION_GRANTED
         ) {
@@ -120,13 +129,30 @@ class MainActivity : BaseActivity() {
     private fun setUpPermissionHandler() {
         permissionRequestHandler = PermissionRequestHandler(
             activity = this,
+            rationaleCallback = {
+                AlertDialog.Builder(this)
+                    .setTitle(
+                        getString(R.string.permission_notifications_dialog_title)
+                    )
+                    .setMessage(
+                        getString(R.string.permission_notifications_dialog_message_rationale)
+                    )
+                    .setPositiveButton(
+                        getString(R.string.permission_notifications_dialog_rationale_button),
+                    ) { _, _ ->
+                        if (Build.VERSION.SDK_INT >= TIRAMISU) {
+                            requestPermission(POST_NOTIFICATIONS)
+                        }
+                    }.show()
+            },
             deniedCallback = {
                 AlertDialog.Builder(this)
                     .setTitle(
                         getString(R.string.permission_notifications_dialog_title)
                     )
                     .setMessage(
-                        getString(R.string.permission_notifications_dialog_message)
+                        getString(R.string.permission_notifications_dialog_message_rationale)
+                                + getString(R.string.permission_notifications_dialog_message)
                     )
                     .setPositiveButton(
                         getString(R.string.permission_notifications_dialog_button)
@@ -210,6 +236,7 @@ class MainActivity : BaseActivity() {
         super.onDestroy()
         _binding = null
         permissionRequestHandler = null
+        this.unregisterReceiver(airplaneModeChangingListener?.receiver)
     }
 
     companion object {
