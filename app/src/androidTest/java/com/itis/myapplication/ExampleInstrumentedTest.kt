@@ -1,4 +1,4 @@
-package com.itis.android_tasks
+package com.itis.myapplication
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
