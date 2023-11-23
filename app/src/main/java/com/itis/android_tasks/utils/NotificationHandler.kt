@@ -45,7 +45,8 @@ class NotificationHandler(private val ctx: Context) {
             val notification = getDefaultBuilder()
                 .setContentTitle(NotificationSettings.title)
                 .also {
-                    if (NotificationSettings.isExpandableText) {
+                    if (NotificationSettings.isExpandableText
+                        && NotificationSettings.description.length >= MIN_LENGTH_FOR_EXPANDING) {
                         it.setStyle(
                             NotificationCompat.BigTextStyle()
                                 .bigText(NotificationSettings.description)
@@ -108,5 +109,6 @@ class NotificationHandler(private val ctx: Context) {
     companion object {
         const val CUSTOM_NOTIFICATION_ID = 1
         const val COROUTINES_NOTIFICATION_ID = 2
+        private const val MIN_LENGTH_FOR_EXPANDING = 50
     }
 }

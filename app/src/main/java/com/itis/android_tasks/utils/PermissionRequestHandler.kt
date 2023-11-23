@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 
 class PermissionRequestHandler(
     activity: AppCompatActivity,
-    private val callback: (() -> Unit)? = null,
     private val rationaleCallback: (() -> Unit)? = null,
     private val deniedCallback: (() -> Unit)? = null,
 ) {
@@ -13,9 +12,7 @@ class PermissionRequestHandler(
 
     private val singlePermissionLauncher =
         activity.registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted) {
-                callback?.invoke()
-            } else {
+            if (!isGranted) {
                 if (currentPermission.isNotEmpty() && activity.shouldShowRequestPermissionRationale(
                         currentPermission
                     )

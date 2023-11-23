@@ -51,6 +51,8 @@ class MainActivity : BaseActivity() {
             setContentView(it.root)
         }
 
+        initThemeListener()
+        initTheme()
         airplaneModeChangingListener = AirplaneModeChangingListener(
             this,
             onAirplaneModeChanged = {
@@ -59,8 +61,6 @@ class MainActivity : BaseActivity() {
         ).also {
             it.onStartAirplaneModeCheck()
         }
-        initThemeListener()
-        initTheme()
         initBottomNavigation()
         setUpPermissionHandler()
         initNotificationChannels()
