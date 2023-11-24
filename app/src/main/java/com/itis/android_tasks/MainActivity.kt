@@ -260,8 +260,8 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
+    override fun onResume() {
+        super.onResume()
         intent?.extras?.let {
             when (it.getString(ParamsKey.INTENT_KEY)) {
                 ParamsKey.INTENT_HOME_TOAST_VALUE -> {
@@ -279,6 +279,11 @@ class MainActivity : BaseActivity() {
                 else -> {}
             }
         }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        this.intent = intent
     }
 
     override fun onStop() {

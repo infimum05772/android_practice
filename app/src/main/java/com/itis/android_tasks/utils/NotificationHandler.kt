@@ -80,7 +80,7 @@ class NotificationHandler(private val ctx: Context) {
             ctx,
             ParamsKey.INTENT_HOME_TOAST_REQUEST_CODE,
             intent,
-            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
     }
 
@@ -92,7 +92,7 @@ class NotificationHandler(private val ctx: Context) {
             ctx,
             ParamsKey.INTENT_NOTIFICATION_SETTINGS_REQUEST_CODE,
             intent,
-            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
     }
 
