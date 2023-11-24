@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/item_main"
+        android:icon="@drawable/icon_main"
+        android:title="@string/main_bn"/>
+
+    <item android:id="@+id/item_notification_settings"
+        android:icon="@drawable/icon_notifications_settings"
+        android:title="@string/notification_settings_bn"/>
+
+    <item android:id="@+id/item_coroutine_settings"
+        android:icon="@drawable/icon_coroutines_settings"
+        android:title="@string/coroutine_settings_bn"/>
+</menu>
