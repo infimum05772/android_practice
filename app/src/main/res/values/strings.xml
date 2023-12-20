@@ -1,4 +1,30 @@
 <resources>
     <string name="app_name">Super Duper HW5</string>
-
+    <string name="enter_email_hint">email</string>
+    <string name="submit_btn">submit</string>
+    <string name="enter_password_hint">password</string>
+    <string name="app_name_1">ani.me</string>
+    <string name="welcome_text">tell us who you are</string>
+    <string name="register_now_btn">register now</string>
+    <string name="registration_text">please, introduce yourself</string>
+    <string name="register_btn">register</string>
+    <string name="name_hint">name</string>
+    <string name="phone_hint">phone</string>
+    <string name="repeat_password_hint">repeat password</string>
+    <string name="phone_regex">^\\+7 \\(9\\d{2}\\)-\\d{3}-\\d{2}-\\d{2}$</string>
+    <string name="phone_regex_incomplete">^\\+7 \\(9(\\d(\\d\\)-(\\d(\\d(\\d-(\\d(\\d-(\\d(\\d)?)?)?)?)?)?)?)?)?$</string>
+    <string name="phone_does_not_match_mask_error">phone number must match mask +7 (9##)-###-##-##</string>
+    <string name="phone_incomplete_error">phone number must contain 10 digits</string>
+    <string name="phone_start_part">+7 (9</string>
+    <string name="phone_second_part">%1$s)-</string>
+    <string name="phone_end_parts">%1$s-</string>
+    <string name="email_regex">^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\\.[a-zA-Z0-9_-]+$</string>
+    <string name="password_regex">^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$</string>
+    <string name="empty_name_error">you should enter name</string>
+    <string name="empty_email_error">you should enter email</string>
+    <string name="invalid_email_error">invalid email</string>
+    <string name="empty_password_error">you should enter password</string>
+    <string name="short_password_error">at least 8 characters</string>
+    <string name="weak_password_error">use both letters and digits</string>
+    <string name="password_does_not_match_error">password doesn\'t match</string>
 </resources>

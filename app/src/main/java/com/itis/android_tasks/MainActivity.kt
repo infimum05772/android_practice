@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.itis.android_tasks.base.BaseActivity
 import com.itis.android_tasks.databinding.ActivityMainBinding
+import com.itis.android_tasks.ui.fragments.AuthorizationPageFragment
 import com.itis.android_tasks.utils.ActionType
 import com.itis.android_tasks.utils.ParamsKey
 
@@ -23,14 +24,14 @@ class MainActivity : BaseActivity() {
         }
         initThemeListener()
         initTheme()
-//        if (supportFragmentManager.findFragmentByTag(StartPageFragment.START_PAGE_FRAGMENT_TAG) == null) {
-//            goToScreen(
-//                ActionType.ADD,
-//                StartPageFragment(),
-//                StartPageFragment.START_PAGE_FRAGMENT_TAG,
-//                false
-//             )
-//        }
+        if (supportFragmentManager.findFragmentByTag(AuthorizationPageFragment.AUTHORIZATION_PAGE_FRAGMENT_TAG) == null) {
+            goToScreen(
+                ActionType.ADD,
+                AuthorizationPageFragment(),
+                AuthorizationPageFragment.AUTHORIZATION_PAGE_FRAGMENT_TAG,
+                false
+             )
+        }
     }
 
     override fun goToScreen(
