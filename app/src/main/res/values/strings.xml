@@ -58,4 +58,10 @@
     <string name="add_anime_btn">add anime</string>
     <string name="add_anime_success">successfully added</string>
     <string name="not_unique_anime">such anime already added</string>
+    <string name="feed_section_name">FEED</string>
+    <string name="favorites_header">FAVORITES</string>
+    <string name="no_favorites_found_tv">no favorites found</string>
+    <string name="no_anime_added_yet_tv">no anime added yet</string>
+    <string name="released_year_label">released year:</string>
+    <string name="rate_btn">rate</string>
 </resources>
