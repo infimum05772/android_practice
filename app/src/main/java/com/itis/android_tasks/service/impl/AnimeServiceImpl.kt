@@ -20,6 +20,13 @@ object AnimeServiceImpl : AnimeService {
             }
     }
 
+    override fun isAnimeUnique(name: String, released: Int): Boolean {
+        return ServiceLocator.getDBInstance().animeDao.getAnimeByNameAndReleased(
+            name,
+            released
+        ) == null
+    }
+
     override fun delete(anime: AnimeModel) {
         ServiceLocator.getDBInstance().animeDao.getAnimeByNameAndReleased(
             anime.name,
@@ -31,6 +38,14 @@ object AnimeServiceImpl : AnimeService {
 
     override fun saveAnime(anime: AnimeModel) {
         ServiceLocator.getDBInstance().animeDao.saveAnime(toAnimeEntity(anime, 0))
+    }
+
+    override fun getUserFavoriteAnime(email: String): List<AnimeModel>? {
+        return ServiceLocator.getDBInstance().userDao.getUserFavoriteAnime(email)?.anime?.map { animeEntity ->
+            toAnimeModel(
+                animeEntity
+            )
+        }
     }
 
     private fun toAnimeEntity(animeModel: AnimeModel, id: Int) = AnimeEntity(

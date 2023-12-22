@@ -27,6 +27,4 @@ interface UserService {
     fun addToFavorites(email: String, anime: AnimeModel)
 
     fun removeFromFavorites(email: String, anime: AnimeModel)
-
-    fun getUserFavoriteAnime(email: String) : List<AnimeModel>?
 }

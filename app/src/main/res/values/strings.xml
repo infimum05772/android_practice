@@ -18,8 +18,12 @@
     <string name="email_regex">^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\\.[a-zA-Z0-9_-]+$</string>
     <string name="password_regex">^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$</string>
     <string name="empty_name_error">you should enter name</string>
+    <string name="empty_anime_name_error">you should enter anime name</string>
+    <string name="empty_desc_error">you should enter description</string>
     <string name="empty_email_error">you should enter email</string>
+    <string name="empty_released_error">you should enter released year</string>
     <string name="invalid_email_error">invalid email</string>
+    <string name="invalid_released_error">invalid year</string>
     <string name="empty_password_error">you should enter password</string>
     <string name="short_password_error">at least 8 characters</string>
     <string name="weak_password_error">use both letters and digits</string>
@@ -48,4 +52,10 @@
     <string name="acc_deleting_dialog_text">are you sure?</string>
     <string name="acc_deleting_dialog_positive_button">YES</string>
     <string name="acc_deleting_dialog_negative_button">NO</string>
+    <string name="add_anime_section_name">ADD ANIME</string>
+    <string name="released_hint">released</string>
+    <string name="description_hint">description</string>
+    <string name="add_anime_btn">add anime</string>
+    <string name="add_anime_success">successfully added</string>
+    <string name="not_unique_anime">such anime already added</string>
 </resources>
