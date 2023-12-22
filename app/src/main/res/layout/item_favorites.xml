@@ -42,20 +42,5 @@
             app:layout_constraintTop_toBottomOf="@id/tv_favorites_header"
             tools:listitem="@layout/item_anime_favorite" />
 
-        <TextView
-            android:id="@+id/tv_no_favorites_found"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginVertical="32dp"
-            android:text="@string/no_favorites_found_tv"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_favorites_header" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -1,10 +1,7 @@
 package com.itis.android_tasks.service
 
-import com.itis.android_tasks.data.db.entity.UserEntity
-import com.itis.android_tasks.data.db.entity.ref.UserFilmCrossRef
-import com.itis.android_tasks.data.db.entity.relation.UserFavorites
-import com.itis.android_tasks.model.AnimeModel
-import com.itis.android_tasks.model.UserModel
+import com.itis.android_tasks.model.dto.AnimeModel
+import com.itis.android_tasks.model.dto.UserModel
 
 interface UserService {
 
@@ -23,8 +20,4 @@ interface UserService {
     fun saveUser(user: UserModel)
 
     fun deleteUser(email: String)
-
-    fun addToFavorites(email: String, anime: AnimeModel)
-
-    fun removeFromFavorites(email: String, anime: AnimeModel)
 }

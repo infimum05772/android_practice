@@ -1,6 +1,6 @@
 package com.itis.android_tasks.service
 
-import com.itis.android_tasks.model.AnimeModel
+import com.itis.android_tasks.model.dto.AnimeModel
 
 interface AnimeService {
 

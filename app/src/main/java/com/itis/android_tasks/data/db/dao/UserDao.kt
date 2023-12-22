@@ -12,13 +12,13 @@ import com.itis.android_tasks.data.db.entity.relation.UserFavorites
 @Dao
 interface UserDao {
     @Query("SELECT * FROM users WHERE user_id = :userId")
-    fun getUserById(userId: Int) : UserEntity?
+    fun getUserById(userId: Int): UserEntity?
 
     @Query("SELECT * FROM users WHERE email = :email")
-    fun getUserByEmail(email: String) : UserEntity?
+    fun getUserByEmail(email: String): UserEntity?
 
     @Query("SELECT * FROM users WHERE phone = :phone")
-    fun getUserByPhone(phone: String) : UserEntity?
+    fun getUserByPhone(phone: String): UserEntity?
 
     @Query("UPDATE users SET phone = :phone WHERE email = :email")
     fun updatePhone(email: String, phone: String)
@@ -31,13 +31,4 @@ interface UserDao {
 
     @Delete
     fun deleteUser(user: UserEntity)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addToFavorites(ref: UserFilmCrossRef)
-
-    @Delete
-    fun removeFromFavorites(ref: UserFilmCrossRef)
-
-    @Query("SELECT * FROM users WHERE email = :email")
-    fun getUserFavoriteAnime(email: String) : UserFavorites?
 }

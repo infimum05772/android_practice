@@ -52,6 +52,10 @@
     <string name="acc_deleting_dialog_text">are you sure?</string>
     <string name="acc_deleting_dialog_positive_button">YES</string>
     <string name="acc_deleting_dialog_negative_button">NO</string>
+    <string name="anime_deleting_dialog_header">ANIME DELETING</string>
+    <string name="anime_deleting_dialog_text">are you sure you want to delete anime?</string>
+    <string name="anime_deleting_dialog_positive_button">DELETE</string>
+    <string name="anime_deleting_dialog_negative_button">CANCEL</string>
     <string name="add_anime_section_name">ADD ANIME</string>
     <string name="released_hint">released</string>
     <string name="description_hint">description</string>

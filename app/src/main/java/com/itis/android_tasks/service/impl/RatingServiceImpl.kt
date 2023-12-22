@@ -2,32 +2,44 @@ package com.itis.android_tasks.service.impl
 
 import com.itis.android_tasks.data.db.entity.RatingEntity
 import com.itis.android_tasks.di.ServiceLocator
-import com.itis.android_tasks.model.AnimeModel
-import com.itis.android_tasks.model.RatingModel
+import com.itis.android_tasks.model.dto.AnimeModel
+import com.itis.android_tasks.model.dto.RatingModel
 import com.itis.android_tasks.service.RatingService
 
 object RatingServiceImpl : RatingService {
-    override fun addRating(rating: RatingModel) {
+
+    override fun setRating(rating: RatingModel) {
         with(ServiceLocator.getDBInstance()) {
             val userId = userDao.getUserByEmail(rating.email)?.userId
             val animeId =
                 animeDao.getAnimeByNameAndReleased(rating.animeName, rating.animeReleased)?.animeId
             if (userId != null && animeId != null) {
-                ratingDao.addRating(
-                    RatingEntity(
-                        0,
-                        userId,
-                        animeId,
-                        rating.value
+                if (ratingDao.getRatingByAnimeAndUser(animeId, userId) == null) {
+                    ratingDao.addRating(
+                        RatingEntity(
+                            0,
+                            userId,
+                            animeId,
+                            rating.value
+                        )
                     )
-                )
+                } else {
+                    ratingDao.setRating(
+                        rating.value,
+                        userId,
+                        animeId
+                    )
+                }
             }
         }
     }
 
     override fun getAnimeRatingByAllUsers(anime: AnimeModel): Double {
         with(ServiceLocator.getDBInstance()) {
-            animeDao.getAnimeByNameAndReleased(anime.name, anime.released)?.animeId?.let {animeId ->
+            animeDao.getAnimeByNameAndReleased(
+                anime.name,
+                anime.released
+            )?.animeId?.let { animeId ->
                 ratingDao.getAnimeRatingByAllUsers(animeId)?.stream()?.mapToInt { rating ->
                     rating.value
                 }?.average()?.let { avg ->

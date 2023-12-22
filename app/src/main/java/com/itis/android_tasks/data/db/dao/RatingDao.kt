@@ -11,6 +11,9 @@ interface RatingDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addRating(rating: RatingEntity)
 
+    @Query("UPDATE rating SET value = :value WHERE user_id = :userId AND anime_id = :animeId")
+    fun setRating(value: Int, userId: Int, animeId: Int)
+
     @Query("SELECT * FROM rating WHERE anime_id = :animeId")
     fun getAnimeRatingByAllUsers(animeId: Int): List<RatingEntity>?
 

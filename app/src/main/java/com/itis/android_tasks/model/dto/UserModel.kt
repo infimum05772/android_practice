@@ -1,4 +1,4 @@
-package com.itis.android_tasks.model
+package com.itis.android_tasks.model.dto
 
 data class UserModel (
     var name: String,

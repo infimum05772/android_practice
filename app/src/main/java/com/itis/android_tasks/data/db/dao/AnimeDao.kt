@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.itis.android_tasks.data.db.entity.AnimeEntity
+import com.itis.android_tasks.data.db.entity.relation.UserFavorites
 
 @Dao
 interface AnimeDao {
@@ -24,4 +25,7 @@ interface AnimeDao {
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun saveAnime(anime: AnimeEntity)
+
+    @Query("SELECT * FROM users WHERE email = :email")
+    fun getUserFavoriteAnime(email: String): UserFavorites?
 }

@@ -3,8 +3,8 @@ package com.itis.android_tasks.service.impl
 import com.itis.android_tasks.data.db.entity.UserEntity
 import com.itis.android_tasks.data.db.entity.ref.UserFilmCrossRef
 import com.itis.android_tasks.di.ServiceLocator
-import com.itis.android_tasks.model.AnimeModel
-import com.itis.android_tasks.model.UserModel
+import com.itis.android_tasks.model.dto.AnimeModel
+import com.itis.android_tasks.model.dto.UserModel
 import com.itis.android_tasks.service.UserService
 import com.itis.android_tasks.utils.PasswordUtil
 
@@ -64,36 +64,6 @@ object UserServiceImpl : UserService {
         with(ServiceLocator.getDBInstance().userDao) {
             getUserByEmail(email)?.let {
                 deleteUser(it)
-            }
-        }
-    }
-
-    override fun addToFavorites(email: String, anime: AnimeModel) {
-        with(ServiceLocator.getDBInstance()) {
-            val userId = userDao.getUserByEmail(email)?.userId
-            val animeId = animeDao.getAnimeByNameAndReleased(anime.name, anime.released)?.animeId
-            if (userId != null && animeId != null) {
-                userDao.addToFavorites(
-                    UserFilmCrossRef(
-                        userId,
-                        animeId
-                    )
-                )
-            }
-        }
-    }
-
-    override fun removeFromFavorites(email: String, anime: AnimeModel) {
-        with(ServiceLocator.getDBInstance()) {
-            val userId = userDao.getUserByEmail(email)?.userId
-            val animeId = animeDao.getAnimeByNameAndReleased(anime.name, anime.released)?.animeId
-            if (userId != null && animeId != null) {
-                userDao.removeFromFavorites(
-                    UserFilmCrossRef(
-                        userId,
-                        animeId
-                    )
-                )
             }
         }
     }

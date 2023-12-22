@@ -6,15 +6,13 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.snackbar.Snackbar
 import com.itis.android_tasks.R
 import com.itis.android_tasks.base.BaseActivity
 import com.itis.android_tasks.databinding.FragmentRegistrationPageBinding
-import com.itis.android_tasks.model.UserModel
+import com.itis.android_tasks.model.dto.UserModel
 import com.itis.android_tasks.service.impl.UserServiceImpl
 import com.itis.android_tasks.utils.ActionType
 import com.itis.android_tasks.utils.PhoneAutocompleteUtil

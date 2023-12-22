@@ -1,23 +1,19 @@
 package com.itis.android_tasks.ui.fragments
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.itis.android_tasks.R
 import com.itis.android_tasks.databinding.FragmentAddDataPageBinding
-import com.itis.android_tasks.model.AnimeModel
+import com.itis.android_tasks.model.dto.AnimeModel
 import com.itis.android_tasks.service.impl.AnimeServiceImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.time.LocalDate
-import java.time.Year
 import java.util.Calendar
 
 class AddDataPageFragment : Fragment(R.layout.fragment_add_data_page) {

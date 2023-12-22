@@ -1,7 +1,7 @@
 package com.itis.android_tasks.session
 
 import com.itis.android_tasks.di.ServiceLocator
-import com.itis.android_tasks.model.UserModel
+import com.itis.android_tasks.model.dto.UserModel
 import com.itis.android_tasks.service.impl.UserServiceImpl
 import com.itis.android_tasks.utils.ParamsKey
 

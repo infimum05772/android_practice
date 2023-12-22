@@ -2,7 +2,7 @@ package com.itis.android_tasks.service.impl
 
 import com.itis.android_tasks.data.db.entity.AnimeEntity
 import com.itis.android_tasks.di.ServiceLocator
-import com.itis.android_tasks.model.AnimeModel
+import com.itis.android_tasks.model.dto.AnimeModel
 import com.itis.android_tasks.service.AnimeService
 
 object AnimeServiceImpl : AnimeService {
@@ -41,7 +41,7 @@ object AnimeServiceImpl : AnimeService {
     }
 
     override fun getUserFavoriteAnime(email: String): List<AnimeModel>? {
-        return ServiceLocator.getDBInstance().userDao.getUserFavoriteAnime(email)?.anime?.map { animeEntity ->
+        return ServiceLocator.getDBInstance().animeDao.getUserFavoriteAnime(email)?.anime?.map { animeEntity ->
             toAnimeModel(
                 animeEntity
             )

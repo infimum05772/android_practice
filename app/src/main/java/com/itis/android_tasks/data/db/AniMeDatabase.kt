@@ -3,6 +3,7 @@ package com.itis.android_tasks.data.db
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.itis.android_tasks.data.db.dao.AnimeDao
+import com.itis.android_tasks.data.db.dao.FavoritesDao
 import com.itis.android_tasks.data.db.dao.RatingDao
 import com.itis.android_tasks.data.db.dao.UserDao
 import com.itis.android_tasks.data.db.entity.AnimeEntity
@@ -24,6 +25,7 @@ abstract class AniMeDatabase : RoomDatabase() {
     abstract val userDao: UserDao
     abstract val animeDao: AnimeDao
     abstract val ratingDao: RatingDao
+    abstract val favoritesDao: FavoritesDao
 
     companion object {
         const val DATABASE_NAME = "ani_me.db"
