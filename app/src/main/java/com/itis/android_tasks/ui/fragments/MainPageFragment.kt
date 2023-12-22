@@ -107,7 +107,7 @@ class MainPageFragment : Fragment(R.layout.fragment_main_page) {
                 AnimeServiceImpl.delete(animeToDelete)
             }
         }
-        binding.tvNoAnimeFound.isVisible = FavoritesFeedElementModel.getList().size <= 1
+        binding.tvNoAnimeFound.isVisible = feedAdapter?.itemCount == 0
     }
 
     private fun initFeed() {
