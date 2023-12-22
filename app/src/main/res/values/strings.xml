@@ -15,9 +15,6 @@
     <string name="phone_regex_incomplete">^\\+7 \\(9(\\d(\\d\\)-(\\d(\\d(\\d-(\\d(\\d-(\\d(\\d)?)?)?)?)?)?)?)?)?$</string>
     <string name="phone_does_not_match_mask_error">phone number must match mask +7 (9##)-###-##-##</string>
     <string name="phone_incomplete_error">phone number must contain 10 digits</string>
-    <string name="phone_start_part">+7 (9</string>
-    <string name="phone_second_part">%1$s)-</string>
-    <string name="phone_end_parts">%1$s-</string>
     <string name="email_regex">^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\\.[a-zA-Z0-9_-]+$</string>
     <string name="password_regex">^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$</string>
     <string name="empty_name_error">you should enter name</string>
@@ -27,4 +24,28 @@
     <string name="short_password_error">at least 8 characters</string>
     <string name="weak_password_error">use both letters and digits</string>
     <string name="password_does_not_match_error">password doesn\'t match</string>
+    <string name="feed_bn">feed</string>
+    <string name="account_bn">account</string>
+    <string name="add_anime_bn">add anime</string>
+    <string name="unknown_user_error">user with such email does not exist</string>
+    <string name="wrong_password_error">incorrect password, try again</string>
+    <string name="account_section_name">ACCOUNT</string>
+    <string name="name_label">name:</string>
+    <string name="email_label">email:</string>
+    <string name="phone_label">phone:</string>
+    <string name="save_changes_btn">save changes</string>
+    <string name="password_changing_label">PASSWORD CHANGING</string>
+    <string name="current_password_label">current password:</string>
+    <string name="current_password_hint">current password</string>
+    <string name="new_password_hint">new password</string>
+    <string name="change_password_btn">change password</string>
+    <string name="log_out_btn">log out</string>
+    <string name="delete_acc_btn">delete acc</string>
+    <string name="not_unique_phone_error">user with such phone already exists</string>
+    <string name="not_unique_email_error">user with such email already exists</string>
+    <string name="changing_success_msg">successfully changed</string>
+    <string name="acc_deleting_dialog_header">ACCOUNT DELETING</string>
+    <string name="acc_deleting_dialog_text">are you sure?</string>
+    <string name="acc_deleting_dialog_positive_button">YES</string>
+    <string name="acc_deleting_dialog_negative_button">NO</string>
 </resources>

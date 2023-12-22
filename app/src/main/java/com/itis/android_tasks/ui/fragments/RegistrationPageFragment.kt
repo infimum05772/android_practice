@@ -6,13 +6,21 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
 import com.itis.android_tasks.R
 import com.itis.android_tasks.base.BaseActivity
 import com.itis.android_tasks.databinding.FragmentRegistrationPageBinding
+import com.itis.android_tasks.model.UserModel
+import com.itis.android_tasks.service.impl.UserServiceImpl
 import com.itis.android_tasks.utils.ActionType
+import com.itis.android_tasks.utils.PhoneAutocompleteUtil
 import com.itis.android_tasks.utils.TextWatcherActionType
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class RegistrationPageFragment : Fragment(R.layout.fragment_registration_page) {
 
@@ -74,15 +82,36 @@ class RegistrationPageFragment : Fragment(R.layout.fragment_registration_page) {
 
         with(binding) {
             btnRegister.setOnClickListener {
-                (requireActivity() as? BaseActivity)?.goToScreen(
-                    ActionType.REPLACE,
-                    AuthorizationPageFragment.newInstance(
-                        etEmailInput.text.toString(),
-                        etPasswordInput.text.toString()
-                    ),
-                    AuthorizationPageFragment.AUTHORIZATION_PAGE_FRAGMENT_TAG,
-                    false
+                val user = UserModel(
+                    etNameInput.text.toString(),
+                    etPhoneInput.text.toString(),
+                    etEmailInput.text.toString(),
+                    etPasswordInput.text.toString()
                 )
+                tilPhone.error = ""
+                tilEmail.error = ""
+                lifecycleScope.launch(Dispatchers.IO) {
+                    if (!UserServiceImpl.isPhoneUnique(user.phone)) {
+                        requireActivity().runOnUiThread {
+                            tilPhone.error = getString(R.string.not_unique_phone_error)
+                        }
+                    } else if (!UserServiceImpl.isEmailUnique(user.email)) {
+                        requireActivity().runOnUiThread {
+                            tilEmail.error = getString(R.string.not_unique_email_error)
+                        }
+                    } else {
+                        (requireActivity() as? BaseActivity)?.goToScreen(
+                            ActionType.REPLACE,
+                            AuthorizationPageFragment.newInstance(
+                                user.email,
+                                user.password
+                            ),
+                            AuthorizationPageFragment.AUTHORIZATION_PAGE_FRAGMENT_TAG,
+                            false
+                        )
+                        UserServiceImpl.saveUser(user)
+                    }
+                }
             }
         }
     }
@@ -118,52 +147,16 @@ class RegistrationPageFragment : Fragment(R.layout.fragment_registration_page) {
                     etPhoneInput.setText(input.let {
                         when (action) {
                             TextWatcherActionType.ADD -> {
-                                addNumbersAutocomplete(input, selection, count)
+                                PhoneAutocompleteUtil.addNumbersAutocomplete(input, selection, count)
                             }
 
                             TextWatcherActionType.REMOVE -> {
-                                removeNumbersAutocomplete(input)
+                                PhoneAutocompleteUtil.removeNumbersAutocomplete(input)
                             }
                         }
                     })
                     etPhoneInput.setSelection(etPhoneInput.text?.length ?: 0)
                     etPhoneInput.addTextChangedListener(this)
-                }
-
-                private fun addNumbersAutocomplete(
-                    input: CharSequence,
-                    selection: Int,
-                    count: Int
-                ): CharSequence {
-                    var inputModified = input
-                    if (selection != input.length && count <= 1) {
-                        input.subSequence(selection, selection + count).let {
-                            inputModified = input.removeRange(selection, selection + count)
-                                .toString() + it
-                        }
-                    }
-                    if (input.length == 7) {
-                        return getString(R.string.phone_second_part, inputModified)
-                    }
-                    if (input.length == 12 || input.length == 15) {
-                        return getString(R.string.phone_end_parts, inputModified)
-                    }
-                    return inputModified
-                }
-
-                private fun removeNumbersAutocomplete(
-                    input: CharSequence
-                ): CharSequence {
-                    if (input.length <= 5) {
-                        return getString(R.string.phone_start_part)
-                    }
-                    if (input.length == 9) {
-                        return input.subSequence(0, input.length - 3)
-                    }
-                    if (input.length == 13 || input.length == 16) {
-                        return input.subSequence(0, input.length - 2)
-                    }
-                    return input.subSequence(0, input.length - 1)
                 }
 
                 override fun beforeTextChanged(
@@ -212,7 +205,7 @@ class RegistrationPageFragment : Fragment(R.layout.fragment_registration_page) {
                         tilPhone.error = getString(R.string.phone_incomplete_error)
                     }
                 } else if (etPhoneInput.text.isEmpty()) {
-                    etPhoneInput.setText(getString(R.string.phone_start_part))
+                    etPhoneInput.setText(PhoneAutocompleteUtil.PHONE_FIRST_PART)
                 }
             }
         }

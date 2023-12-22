@@ -6,12 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.itis.android_tasks.R
-import com.itis.android_tasks.databinding.FragmentMainPageBinding
+import com.itis.android_tasks.databinding.FragmentAddDataPageBinding
 
-class MainPageFragment : Fragment(R.layout.fragment_main_page) {
-
-    private var _binding: FragmentMainPageBinding? = null
-    private val binding: FragmentMainPageBinding
+class AddDataPageFragment : Fragment(R.layout.fragment_add_data_page) {
+    private var _binding: FragmentAddDataPageBinding? = null
+    private val binding: FragmentAddDataPageBinding
         get() = _binding!!
 
     override fun onCreateView(
@@ -19,7 +18,7 @@ class MainPageFragment : Fragment(R.layout.fragment_main_page) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMainPageBinding.inflate(inflater, container, false)
+        _binding = FragmentAddDataPageBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -41,6 +40,6 @@ class MainPageFragment : Fragment(R.layout.fragment_main_page) {
     }
 
     companion object {
-        const val MAIN_PAGE_FRAGMENT_TAG = "MAIN_PAGE_FRAGMENT_TAG"
+        const val ADD_DATA_PAGE_FRAGMENT_TAG = "ADD_DATA_PAGE_FRAGMENT_TAG"
     }
 }

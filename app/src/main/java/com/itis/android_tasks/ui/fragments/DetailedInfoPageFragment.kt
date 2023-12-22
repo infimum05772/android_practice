@@ -6,12 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.itis.android_tasks.R
-import com.itis.android_tasks.databinding.FragmentMainPageBinding
+import com.itis.android_tasks.databinding.FragmentDetailedInfoPageBinding
 
-class MainPageFragment : Fragment(R.layout.fragment_main_page) {
-
-    private var _binding: FragmentMainPageBinding? = null
-    private val binding: FragmentMainPageBinding
+class DetailedInfoPageFragment: Fragment(R.layout.fragment_detailed_info_page) {
+    private var _binding: FragmentDetailedInfoPageBinding? = null
+    private val binding: FragmentDetailedInfoPageBinding
         get() = _binding!!
 
     override fun onCreateView(
@@ -19,7 +18,7 @@ class MainPageFragment : Fragment(R.layout.fragment_main_page) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMainPageBinding.inflate(inflater, container, false)
+        _binding = FragmentDetailedInfoPageBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -41,6 +40,6 @@ class MainPageFragment : Fragment(R.layout.fragment_main_page) {
     }
 
     companion object {
-        const val MAIN_PAGE_FRAGMENT_TAG = "MAIN_PAGE_FRAGMENT_TAG"
+        const val DETAILED_INFO_PAGE_FRAGMENT_TAG = "DETAILED_INFO_PAGE_FRAGMENT_TAG"
     }
 }

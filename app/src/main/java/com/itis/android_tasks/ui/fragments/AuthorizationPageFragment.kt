@@ -7,11 +7,17 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.itis.android_tasks.R
 import com.itis.android_tasks.base.BaseActivity
 import com.itis.android_tasks.databinding.FragmentAuthorizationPageBinding
+import com.itis.android_tasks.service.impl.UserServiceImpl
+import com.itis.android_tasks.session.AppSession
+import com.itis.android_tasks.ui.MainActivity
 import com.itis.android_tasks.utils.ActionType
 import com.itis.android_tasks.utils.ParamsKey
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class AuthorizationPageFragment : Fragment(R.layout.fragment_authorization_page) {
 
@@ -50,12 +56,12 @@ class AuthorizationPageFragment : Fragment(R.layout.fragment_authorization_page)
             }
 
             btnSubmit.setOnClickListener {
-
+                authoriseUser()
             }
 
             arguments?.let {
-                val email = it.getString(ParamsKey.EMAIL_KEY)
-                val password = it.getString(ParamsKey.PASSWORD_KEY)
+                val email = it.getString(ParamsKey.EMAIL_BUNDLE_KEY)
+                val password = it.getString(ParamsKey.PASSWORD_BUNDLE_KEY)
                 if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
                     etEmailInput.setText(email)
                     etPasswordInput.setText(password)
@@ -73,6 +79,38 @@ class AuthorizationPageFragment : Fragment(R.layout.fragment_authorization_page)
         }
     }
 
+    private fun authoriseUser() {
+        with(binding) {
+            val email = etEmailInput.text.toString()
+            val password = etPasswordInput.text.toString()
+            tilEmail.error = ""
+            tilPassword.error = ""
+            lifecycleScope.launch(Dispatchers.IO) {
+                val isRegistered = UserServiceImpl.isRegistered(
+                    email,
+                    password
+                )
+                if (isRegistered == null) {
+                    requireActivity().runOnUiThread {
+                        tilEmail.error = getString(R.string.unknown_user_error)
+                    }
+                } else if (!isRegistered) {
+                    requireActivity().runOnUiThread {
+                        tilPassword.error = getString(R.string.wrong_password_error)
+                    }
+                } else {
+                    AppSession.init(email)
+                    AppSession.saveSession()
+                    with(requireActivity()) {
+                        runOnUiThread {
+                            (this as? MainActivity)?.toFeedPage()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
@@ -81,8 +119,11 @@ class AuthorizationPageFragment : Fragment(R.layout.fragment_authorization_page)
     companion object {
         const val AUTHORIZATION_PAGE_FRAGMENT_TAG = "AUTHORIZATION_PAGE_FRAGMENT_TAG"
 
-        fun newInstance(email: String, password: String) = AuthorizationPageFragment().apply {
-            arguments = bundleOf(ParamsKey.EMAIL_KEY to email, ParamsKey.PASSWORD_KEY to password)
+        fun newInstance(email: String?, password: String?) = AuthorizationPageFragment().apply {
+            arguments = bundleOf(
+                ParamsKey.EMAIL_BUNDLE_KEY to email,
+                ParamsKey.PASSWORD_BUNDLE_KEY to password
+            )
         }
     }
 }
