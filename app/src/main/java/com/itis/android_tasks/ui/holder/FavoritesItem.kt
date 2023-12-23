@@ -33,7 +33,6 @@ class FavoritesItem(
     }
 
     fun removeItem(name: String, released: Int) {
-        FavoritesFeedElementModel.removeItem(name, released)
         adapterFavorites?.removeItem(name, released)
     }
 }

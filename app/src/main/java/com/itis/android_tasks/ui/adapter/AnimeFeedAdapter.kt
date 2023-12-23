@@ -84,13 +84,16 @@ class AnimeFeedAdapter(
 
     fun removeItem(position: Int) {
         if (feedList.isNotEmpty() && feedList[0] is FavoritesFeedElementModel) {
-            updateFavorites(feedList[position] as AnimeFeedElementModel)
+            (feedList[position] as? AnimeFeedElementModel)?.let {
+                updateFavorites(it)
+                FavoritesFeedElementModel.removeItem(it.animeModel.name, it.animeModel.released)
+            }
         }
         feedList.removeAt(position)
         notifyItemRemoved(position)
         if (feedList.isNotEmpty() &&
             feedList[0] is FavoritesFeedElementModel &&
-            FavoritesFeedElementModel.getList().size <= 1
+            FavoritesFeedElementModel.getList().size == 0
         ) {
             feedList.removeAt(0)
             notifyItemRemoved(0)

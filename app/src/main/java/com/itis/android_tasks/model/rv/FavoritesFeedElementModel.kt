@@ -17,6 +17,7 @@ object FavoritesFeedElementModel : FeedElementModel {
         for (i in favoritesList.indices) {
             if (favoritesList[i].animeModel.name == name && favoritesList[i].animeModel.released == released){
                 favoritesList.removeAt(i)
+                return
             }
         }
     }
