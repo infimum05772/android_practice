@@ -27,15 +27,6 @@ class FavoritesAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as? AnimeFavoriteItem)?.bindItem(favoritesList[position])
     }
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>) {
-        if (payloads.isNotEmpty()) {
-            (payloads.first() as? Bundle)?.let {
-            }
-        } else {
-            super.onBindViewHolder(holder, position, payloads)
-        }
-    }
     fun setItems(list: List<AnimeFavoriteModel>) {
         val diff = FavoritesDiffUtil(favoritesList, list)
         val diffResult = DiffUtil.calculateDiff(diff)
