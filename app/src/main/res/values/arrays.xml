@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="question_texts">
+        <item>Do you enjoy socializing with large groups of people?</item>
+        <item>Are you generally an optimistic person?</item>
+        <item>Are you easily stressed or anxious?</item>
+        <item>Do you consider yourself a creative person?</item>
+        <item>Do you prefer to plan ahead or go with the flow?</item>
+        <item>Are you a team player?</item>
+        <item>Do you enjoy taking risks?</item>
+        <item>Are you often the life of the party?</item>
+        <item>Do you prefer routine or spontaneity in your life?</item>
+        <item>Are you a good listener?</item>
+        <item>Do you consider yourself a perfectionist?</item>
+        <item>Are you more introverted or extroverted?</item>
+        <item>Do you enjoy trying new experiences?</item>
+        <item>Are you a patient person?</item>
+        <item>Do you often seek adventure and excitement?</item>
+        <item>Are you comfortable expressing your emotions?</item>
+        <item>Do you prefer order and structure in your environment?</item>
+        <item>Are you a detail-oriented person?</item>
+        <item>Do you enjoy solving complex problems?</item>
+        <item>Do you value honesty above all else?</item>
+        <item>Do you enjoy public speaking?</item>
+        <item>Are you a fast decision-maker?</item>
+        <item>Do you enjoy working in a team or independently?</item>
+        <item>Do you have a strong sense of empathy towards others?</item>
+        <item>Are you easily influenced by others\' opinions?</item>
+        <item>Do you enjoy being the center of attention?</item>
+        <item>Are you a patient listener?</item>
+        <item>Do you consider yourself a competitive person?</item>
+        <item>Do you enjoy taking on leadership roles?</item>
+        <item>Are you a goal-oriented individual?</item>
+        <item>Do you like to analyze situations before making a decision?</item>
+        <item>Are you comfortable with change and adapting to new circumstances?</item>
+        <item>Do you enjoy being challenged intellectually?</item>
+        <item>Do you consider yourself an organized person?</item>
+        <item>Are you good at multitasking?</item>
+        <item>Do you enjoy helping others?</item>
+        <item>Are you open to new ideas and perspectives?</item>
+        <item>Do you easily get bored?</item>
+        <item>Are you a good problem solver?</item>
+        <item>Do you enjoy working under pressure?</item>
+        <item>Do you like to follow a routine?</item>
+        <item>Are you good at handling criticism?</item>
+        <item>Do you enjoy independent research and learning?</item>
+        <item>Are you a good negotiator?</item>
+        <item>Do you enjoy taking on new responsibilities?</item>
+        <item>Do you enjoy participating in group activities?</item>
+        <item>Are you a good planner and organizer?</item>
+        <item>Do you enjoy public speaking?</item>
+        <item>Do you consider yourself a risk-taker?</item>
+        <item>Are you adaptable to different situations?</item>
+        <item>Do you enjoy working with numbers and data?</item>
+        <item>Are you comfortable being vulnerable and expressing your emotions?</item>
+        <item>Do you prefer working alone or in a team?</item>
+        <item>Do you value punctuality?</item>
+        <item>Are you comfortable speaking in front of large audiences?</item>
+        <item>Do you enjoy brainstorming and generating new ideas?</item>
+        <item>Are you good at managing your time effectively?</item>
+        <item>Do you enjoy analyzing data and finding patterns?</item>
+        <item>Are you a good listener?</item>
+        <item>Do you enjoy trying new hobbies and activities?</item>
+        <item>Are you comfortable with change?</item>
+        <item>Do you enjoy analyzing and interpreting complex information?</item>
+        <item>Are you a good communicator?</item>
+        <item>Do you prefer working in a structured environment?</item>
+        <item>Are you good at problem-solving under pressure?</item>
+        <item>Do you enjoy taking on challenges?</item>
+        <item>Are you comfortable with taking on leadership roles?</item>
+        <item>Do you enjoy planning and organizing events?</item>
+        <item>Are you good at managing conflict?</item>
+        <item>Do you enjoy working on long-term projects?</item>
+        <item>Are you detail-oriented?</item>
+        <item>Do you enjoy learning about different cultures and traditions?</item>
+        <item>Are you a diplomatic person?</item>
+        <item>Do you enjoy working with your hands?</item>
+        <item>Are you a good team player?</item>
+        <item>Do you enjoy analyzing and interpreting literature?</item>
+        <item>Are you good at managing your finances?</item>
+        <item>Do you enjoy trying new food and cuisines?</item>
+        <item>Are you a good problem solver?</item>
+        <item>Do you consider yourself an adventurous person?</item>
+        <item>Are you comfortable with public speaking?</item>
+        <item>Do you enjoy analyzing and interpreting art?</item>
+        <item>Are you good at adapting to new technologies?</item>
+        <item>Do you enjoy working in a fast-paced environment?</item>
+        <item>Are you comfortable with public speaking?</item>
+        <item>Do you enjoy analyzing and interpreting historical events?</item>
+        <item>Are you good at managing your personal and professional life?</item>
+        <item>Do you enjoy trying new sports and physical activities?</item>
+        <item>Are you a good mediator?</item>
+        <item>Do you enjoy working on creative projects?</item>
+        <item>Are you comfortable with public speaking?</item>
+        <item>Do you enjoy analyzing and interpreting scientific data?</item>
+        <item>Are you good at problem-solving in a crisis?</item>
+        <item>Do you enjoy trying new fashion styles and trends?</item>
+        <item>Are you a good mentor?</item>
+        <item>Do you enjoy working on innovative projects?</item>
+        <item>Are you comfortable with public speaking?</item>
+        <item>Do you enjoy analyzing and interpreting political events?</item>
+        <item>Are you good at managing your time effectively?</item>
+        <item>Do you enjoy trying new technologies and gadgets?</item>
+    </string-array>
+</resources>
